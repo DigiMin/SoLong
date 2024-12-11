@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/26 20:02:47 by honnguye          #+#    #+#             */
-/*   Updated: 2024/12/08 22:25:19 by honnguye         ###   ########.fr       */
+/*   Updated: 2024/12/09 13:37:37 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ char	*get_next_line(int fd)
 	}
 	if (!n)
 	{
-		line = _ftread_line(line, &heads[fd][0], fd);
+		line = ft_read_line(line, &heads[fd][0], fd);
 		if (!line)
 			return (NULL);
 	}
 	return (line);
 }
 
-char	*_ftread_line(char *line, char *buffer, int fd)
+char	*ft_read_line(char *line, char *buffer, int fd)
 {
 	ssize_t	bread;
 	char	*n;

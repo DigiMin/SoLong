@@ -1,10 +1,11 @@
+CC		:= cc
 NAME	:= Game
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -Wextra -Wall -Werror -g #-Wunreachable-code -Ofast
 LIBMLX	:= ../MLX42/
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/mlx_build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS	:= ./src/test_prog.c #$(shell find ./src -iname "*.c")
+SRCS	:= $(shell find ./src -iname "*.c") #./src/test_prog.c
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx $(NAME)

@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:18:38 by honnguye          #+#    #+#             */
-/*   Updated: 2024/12/08 22:57:46 by honnguye         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:16:13 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@
 typedef struct t_map {
 	int height;
 	int width;
-	char *map_terrain[30];
+	char **map_terrain;
 	int start_c;
 	int exit_c;
 	int space_c;
 	int collectible_c;
 	int wall_c;
-	int is_playable;
 } t_map;
 
 typedef struct t_coord {
@@ -44,7 +43,6 @@ typedef struct t_coord {
 static mlx_image_t *image;
 static mlx_t *mlx;
 static t_coord *player;
-static t_coord *fin;
 static t_map *game_map;
 static int collected = 0;
 
@@ -55,6 +53,24 @@ void	ft_coords_clear(t_coord **lst);
 void	ft_coord_add_back(t_coord **lst, t_coord *new);
 void 	ft_find_set_coords(t_coord *sprite, char c);
 
+// player settings
+void 	ft_player_init();
 void 	ft_update_player_pos(int x, int y);
+
+// flood-fill funtions
+void 	ft_free_matrix(char **arr, int height);
+int		ft_allocate_visited();
+void	ft_init_visited();
+void	ft_flood_fill(int x, int y);
+int		ft_is_playable();
+
+// map load validate
+void 	ft_free_map(int height);
+int		ft_map_char_count(char c);
+int		ft_init_map(char *path);
+int		ft_map_frame_check();
+int		ft_min_char_validator();
+int		ft_rectangular_check();
+int	ft_map_validator();
 
 #endif
