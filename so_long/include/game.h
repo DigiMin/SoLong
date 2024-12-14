@@ -6,7 +6,7 @@
 /*   By: mina <mina@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:18:38 by honnguye          #+#    #+#             */
-/*   Updated: 2024/12/12 12:47:34 by mina             ###   ########.fr       */
+/*   Updated: 2024/12/14 11:33:37 by mina             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,8 @@ int		ft_is_playable(t_map *map);
 t_map	*ft_init_map(char *path);
 t_map	*ft_map_validator();
 void 	ft_free_map(int height, t_map *map);
+
+
+// draw functions
 
 #endif
