@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   coords_helpers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
+/*   By: mina <mina@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:31:54 by honnguye          #+#    #+#             */
-/*   Updated: 2024/12/10 13:00:40 by honnguye         ###   ########.fr       */
+/*   Updated: 2024/12/12 13:44:01 by mina             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,36 +56,11 @@ t_coord	*ft_coord_last(t_coord *lst)
 t_coord	*ft_coord_new(int x, int y)
 {
 	t_coord	*new;
-	printf("try to allocate new coords");
 	new = malloc(sizeof(t_coord));
 	if (!new)
 		return (NULL);
 	new->x = x;
 	new->y = y;
 	new->next = NULL;
-	printf("allocation and init success!");
 	return (new);
-}
-
-void	ft_find_set_coords(t_coord *sprite, char c)
-{
-	int x;
-	int y;
-
-	y = 0;
-	while (y < game_map->height)
-	{
-		x = 0;
-		while (x < game_map->width)
-		{
-			if (game_map->map_terrain[y][x] == c)
-			{
-				sprite->x = x;
-				sprite->y = y;
-				return ;
-			}
-			y++;
-		}
-		x++;
-	}
 }

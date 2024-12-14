@@ -1,6 +1,6 @@
 CC		:= cc
 NAME	:= Game
-CFLAGS	:= -Wextra -Wall -Werror -g #-Wunreachable-code -Ofast
+CFLAGS	:= -g #-Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBMLX	:= ../MLX42/
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include

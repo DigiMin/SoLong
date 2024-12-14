@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   map_validator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
+/*   By: mina <mina@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:11:29 by honnguye          #+#    #+#             */
-/*   Updated: 2024/12/10 11:55:08 by honnguye         ###   ########.fr       */
+/*   Updated: 2024/12/12 12:45:17 by mina             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
+
+static int ft_rectangular_check(t_map *map);
+static int ft_min_char_validator(t_map *map);
+static int ft_map_frame_check(t_map *map);
 
 // -------------------------------- MAP VALIDATORS ------------------------------- //
 
@@ -18,174 +22,128 @@
 
 // map min height and width needs to be 4
 // width must be the same on each line
-int	ft_map_validator()
+t_map	*ft_map_validator()
 {
-	printf("Trying to initialize the map\n");
-	if(!ft_init_map("./maps/test.ber"))
-		return (0);
-	printf("map initialized\n");
-	if(!ft_rectangular_check())
-		return (0);
-	printf("rectangular checked\n");
-	if(!ft_map_frame_check())
-		return (0);
-	printf("frame checked\n");
-	if(!ft_min_char_validator())
-		return(0);
-	printf("chars checked\n");
-	if(!ft_is_playable())
-		return (0);
-	printf("is playable\n");
-	return (1);
+	t_map	*map;
+	map = ft_init_map("./maps/test.ber");
+	if(!map)
+		return (NULL);
+	if(!ft_rectangular_check(map))
+		return (NULL);
+	if(!ft_map_frame_check(map))
+		return (NULL);
+	if(!ft_min_char_validator(map))
+		return(NULL);
+	if(!ft_is_playable(map))
+		return (NULL);
+	return (map);
 }
 
-int ft_rectangular_check()
+
+// -------------------------------- MAP HELPERS ------------------------------- //
+
+// Read the map and init the variables
+t_map	*ft_init_map(char *path)
+{
+	int		i;
+	int		fd;
+	t_map	*map;
+	i = 0;
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	map = malloc(sizeof(t_map));
+	if (!map)
+		return (NULL);
+	map->terrain = malloc(sizeof(char *) * 20);
+	while ((map->terrain[i] = get_next_line(fd)))
+		i++;
+	close(fd);
+	map->height = i;
+	map->width = ft_gnl_strlen(map->terrain[0], '\0') - 1; // -1 for new line
+	map->start_c = 0;
+	map->exit_c = 0;
+	map->space_c = 0;
+	map->collectible_c = 0;
+	map->wall_c = 0;
+	ft_set_assets(map);
+	return (map);
+}
+
+// Frees the map array
+void ft_free_map(int height, t_map *map)
+{
+	int i = 0;
+	while (i < height)
+	{
+		free(map->terrain[i]);
+		i++;
+	}
+}
+
+static int ft_rectangular_check(t_map *map)
 {
 	int	i;
 	int len;
-	
-	if (game_map->height < 3 || game_map->width < 3)
+	i=0;
+	if (map->height < 3 || map->width < 3)
 		return (0);
 	i = 1;
-	while (game_map->height > i)
+	while (map->height > i)
 	{
-		len = (int)ft_gnl_strlen(game_map->map_terrain[i], '\n');
-		if (ft_chrstr(game_map->map_terrain[i], '\n'))
+		len = (int)ft_gnl_strlen(map->terrain[i], '\n');
+		if (ft_chrstr(map->terrain[i], '\n'))
 			len--;
-		printf("terrain[%d]: %d\n",i, len);
-		if(len != game_map->width)
+		if(len != map->width)
 			return (0);
 		i++;
 	}
-	printf("Rectangular check OK\n");
 	return (1);
 }
 
 // Returns 1 if the collectible, player and exit count meets the requirements
-int ft_min_char_validator()
+static int ft_min_char_validator(t_map *map)
 {
 	int valid_char_count;
 
 	valid_char_count = 0;
-	if (game_map->start_c != 1 || game_map->exit_c != 1)
+	if (map->start_c != 1 || map->exit_c != 1)
 		return (0);
-	if (game_map->collectible_c < 1)
+	if (map->collectible_c < 1)
 		return (0);
-	valid_char_count += game_map->start_c;
-	valid_char_count += game_map->exit_c;
-	valid_char_count += game_map->space_c;
-	valid_char_count += game_map->collectible_c;
-	valid_char_count += game_map->wall_c;
-	if ((valid_char_count != game_map->height * game_map->width) && valid_char_count < 15)
+	valid_char_count += map->start_c;
+	valid_char_count += map->exit_c;
+	valid_char_count += map->space_c;
+	valid_char_count += map->collectible_c;
+	valid_char_count += map->wall_c;
+	if ((valid_char_count != (map->height * map->width)) || valid_char_count < 15)
 		return (0);
 	return (1);
 }
 
 // int ft_map_wall_check
 // walls must be all around the map
-int ft_map_frame_check()
+static int ft_map_frame_check(t_map *map)
 {
 	int	i;
 	
 	i = 0;
-	printf("In map frame checker\n");
-	printf("%p\n", game_map);
-	printf("%p\n", game_map->map_terrain);
-	printf("%p\n", game_map->map_terrain[0]);
-	printf("%i\n", game_map->height);
-	for(int k = 0; k < game_map->height; k++)
-		printf("%s\n", game_map->map_terrain[k]);
-	while (i < game_map->width)
+	while (i < map->width)
 	{
-		if (game_map->map_terrain[0][i] != '1')
+		if (map->terrain[0][i] != '1')
 			return (0);
-		if (game_map->map_terrain[game_map->height - 1][i] != '1')
+		if (map->terrain[map->height - 1][i] != '1')
 			return (0);
 		i++;
 	}
-	printf("UPPER AND LOWER WALLS OK\n");
 	i = 0;
-	while (i < game_map->height)
+	while (i < map->height)
 	{
-		if (game_map->map_terrain[i][0] != '1')
+		if (map->terrain[i][0] != '1')
 			return (0);
-		if (game_map->map_terrain[i][game_map->width - 1] != '1')
+		if (map->terrain[i][map->width - 1] != '1')
 			return (0);
 		i++;
 	}
-	printf("SIDE WALLS OK\n");
 	return (1);
 }
-
-// -------------------------------- MAP HELPERS ------------------------------- //
-
-// Read the map and init the variables
-int ft_init_map(char *path)
-{
-	int i;
-	int fd;
-	printf("in map init\n");
-	i = 0;
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (0);
-	game_map = malloc(sizeof(t_map));
-	if (!game_map)
-		return (0);
-	game_map->map_terrain = malloc(sizeof(char *) * 20);
-	while ((game_map->map_terrain[i] = get_next_line(fd)))
-		i++;
-	close(fd);
-	game_map->height = i;
-	printf("map height: %d\n", game_map->height);
-	game_map->width = ft_gnl_strlen(game_map->map_terrain[0], '\0') - 1; // -1 for new line
-	printf("map width: %d\n", game_map->width);
-	game_map->start_c = ft_map_char_count('P');
-	printf("map start count: %d\n", game_map->start_c);
-	game_map->exit_c = ft_map_char_count('E');
-	printf("map exit count: %d\n", game_map->exit_c);
-	game_map->space_c = ft_map_char_count('0');
-	printf("map spaces: %d\n", game_map->space_c);
-	game_map->collectible_c = ft_map_char_count('C');
-	printf("map collectibles: %d\n", game_map->collectible_c);
-	printf("%s\n", game_map->map_terrain[0]);
-	game_map->wall_c = ft_map_char_count('1');
-	printf("map walls: %d\n", game_map->wall_c);
-
-	return (1);
-}
-
-// Counts the number of character occurance in the array
-int ft_map_char_count(char c)
-{
-	int he;
-	int wi;
-	int count;
-
-	he = 0;
-	count = 0;
-	while (he < game_map->height)
-	{
-		wi = 0;
-		while (wi < game_map->width)
-		{
-			if (game_map->map_terrain[he][wi] == c)
-				count++;
-			wi++;
-		}
-		he++;
-	}
-	return (count);
-}
-
-// Frees the map array
-void ft_free_map(int height)
-{
-	int i = 0;
-	while (i < height)
-	{
-		free(game_map->map_terrain[i]);
-		i++;
-	}
-}
-
