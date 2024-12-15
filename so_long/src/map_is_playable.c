@@ -3,21 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   is_playable.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mina <mina@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: honnguye <honnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:14:41 by honnguye          #+#    #+#             */
-/*   Updated: 2024/12/12 12:53:41 by mina             ###   ########.fr       */
+/*   Updated: 2024/12/14 15:05:02 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
 static void ft_flood_fill(int x, int y, t_map *map);
+static int	ft_allocate_visited(t_map *map);
+static void	ft_init_visited(t_map *map);
+
 // This function handles the visited matrix, calls the flood-fill function
 // The map validator calls this function to try paths
 // Based on if exit and collectable items coordinates are filled, decides if the map is playable
 int ft_is_playable(t_map *map)
 {
+	ft_allocate_visited(map);
 	ft_init_visited(map);
 	ft_flood_fill(map->start->x, map->start->y, map);
 	if (map->collected != map->collectible_c || map->visited[map->exit->y][map->exit->x] != '1')
@@ -26,7 +30,7 @@ int ft_is_playable(t_map *map)
 }
 
 // allocates the memory for the matrix
-int	ft_allocate_visited(t_map *map)
+static int	ft_allocate_visited(t_map *map)
 {
 	int i;
 
@@ -45,7 +49,7 @@ int	ft_allocate_visited(t_map *map)
 }
 
 // initialize the visited array with '0' char
-void ft_init_visited(t_map *map)
+static void ft_init_visited(t_map *map)
 {
 	int	i;
 	int k;

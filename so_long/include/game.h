@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mina <mina@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: honnguye <honnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:18:38 by honnguye          #+#    #+#             */
-/*   Updated: 2024/12/14 11:33:37 by mina             ###   ########.fr       */
+/*   Updated: 2024/12/15 10:48:28 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,9 @@ t_coord	*ft_coord_new(int x, int y);
 t_coord	*ft_coord_last(t_coord *lst);
 void	ft_coords_clear(t_coord **lst);
 void	ft_coord_add_back(t_coord **lst, t_coord *new);
-void	ft_set_assets(t_map *map);
 
 // flood-fill funtions
 void 	ft_free_matrix(char **arr, int height);
-int		ft_allocate_visited(t_map *map);
-void	ft_init_visited(t_map *map);
 int		ft_is_playable(t_map *map);
 
 // map load validate
@@ -65,5 +62,7 @@ void 	ft_free_map(int height, t_map *map);
 
 
 // draw functions
+void    ft_draw_map(mlx_t *mlx, t_map *map,char *path, t_coord *asset);
+mlx_image_t    *ft_load_png(mlx_t *mlx, char *path);
 
 #endif

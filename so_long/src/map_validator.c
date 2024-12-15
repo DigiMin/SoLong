@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mina <mina@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: honnguye <honnguye@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:11:29 by honnguye          #+#    #+#             */
-/*   Updated: 2024/12/12 12:45:17 by mina             ###   ########.fr       */
+/*   Updated: 2024/12/14 15:07:25 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,34 +41,6 @@ t_map	*ft_map_validator()
 
 
 // -------------------------------- MAP HELPERS ------------------------------- //
-
-// Read the map and init the variables
-t_map	*ft_init_map(char *path)
-{
-	int		i;
-	int		fd;
-	t_map	*map;
-	i = 0;
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return (NULL);
-	map->terrain = malloc(sizeof(char *) * 20);
-	while ((map->terrain[i] = get_next_line(fd)))
-		i++;
-	close(fd);
-	map->height = i;
-	map->width = ft_gnl_strlen(map->terrain[0], '\0') - 1; // -1 for new line
-	map->start_c = 0;
-	map->exit_c = 0;
-	map->space_c = 0;
-	map->collectible_c = 0;
-	map->wall_c = 0;
-	ft_set_assets(map);
-	return (map);
-}
 
 // Frees the map array
 void ft_free_map(int height, t_map *map)
