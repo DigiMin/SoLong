@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_display.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honnguye <honnguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 21:19:25 by mina              #+#    #+#             */
-/*   Updated: 2024/12/15 11:39:21 by honnguye         ###   ########.fr       */
+/*   Updated: 2024/12/20 10:51:12 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // static mlx_image_t    *ft_load_png(mlx_t *mlx, char *path);
 
-void    ft_draw_map(mlx_t *mlx, t_map *map,char *path, t_coord *asset)
+mlx_image_t	*ft_draw_asset(mlx_t *mlx, char *path, t_coord *asset)
 {
     mlx_image_t *image = ft_load_png(mlx, path);
 	t_coord *coord = asset;
@@ -24,6 +24,15 @@ void    ft_draw_map(mlx_t *mlx, t_map *map,char *path, t_coord *asset)
 		mlx_image_to_window(mlx, image, coord->x * image->width, coord->y * image->height);
 		coord = coord->next;
 	}
+	return(image);
+}
+
+mlx_image_t	*ft_draw_exit(mlx_t *mlx, char *path, t_coord *asset)
+{
+    mlx_image_t *image = ft_load_png(mlx, path);
+	t_coord *coord = asset;
+	mlx_image_to_window(mlx, image, coord->x * image->width, (coord->y * image->width) - image->width);
+	return(image);
 }
 
 mlx_image_t    *ft_load_png(mlx_t *mlx, char *path)
