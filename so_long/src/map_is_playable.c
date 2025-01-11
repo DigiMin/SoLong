@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_playable.c                                      :+:      :+:    :+:   */
+/*   map_is_playable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: honnguye <honnguye@student.42.fr>          +#+  +:+       +#+        */
+/*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:14:41 by honnguye          #+#    #+#             */
-/*   Updated: 2024/12/14 15:05:02 by honnguye         ###   ########.fr       */
+/*   Updated: 2024/12/29 16:22:32 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	ft_allocate_visited(t_map *map)
 	while (i < map->height)
 	{
 		map->visited[i] = malloc(sizeof(char) * map->width);
-		if (!map->visited[i])
+		if (!map->visited[i]) 
 			return 0;
 		i++;
 	}

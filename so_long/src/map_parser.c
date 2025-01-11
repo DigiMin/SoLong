@@ -1,51 +1,64 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_validator.c                                    :+:      :+:    :+:   */
+/*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:11:29 by honnguye          #+#    #+#             */
-/*   Updated: 2024/12/20 11:06:53 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/11 22:15:17 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
-static int ft_rectangular_check(t_map *map);
-static int ft_min_char_validator(t_map *map);
-static int ft_map_frame_check(t_map *map);
+static int	ft_rectangular_check(t_map *map);
+static int	ft_min_char_validator(t_map *map);
+static int	ft_map_frame_check(t_map *map);
+static int	ft_check_extension(char *path);
 
-// -------------------------------- MAP VALIDATORS ------------------------------- //
-
-// TODO: check for map extensions and valid map names
+// -------------------------------- MAP VALIDATORS -------------------------------
 
 // map min height and width needs to be 4
 // width must be the same on each line
-t_map	*ft_map_validator()
+t_map	*ft_map_parser(char *path)
 {
 	t_map	*map;
-	map = ft_init_map("./maps/test.ber");
-	if(!map)
+
+	if (!ft_check_extension(path))
 		return (NULL);
-	if(!ft_rectangular_check(map))
+	map = ft_init_map(path);
+	if (!map)
 		return (NULL);
-	if(!ft_map_frame_check(map))
+	if (!ft_rectangular_check(map))
 		return (NULL);
-	if(!ft_min_char_validator(map))
-		return(NULL);
-	if(!ft_is_playable(map))
+	if (!ft_map_frame_check(map))
+		return (NULL);
+	if (!ft_min_char_validator(map))
+		return (NULL);
+	if (!ft_is_playable(map))
 		return (NULL);
 	return (map);
 }
 
+// -------------------------------- MAP HELPERS -------------------------------
 
-// -------------------------------- MAP HELPERS ------------------------------- //
+static int	ft_check_extension(char *path)
+{
+	size_t	i;
+
+	i = ft_gnl_strlen(path, '\0');
+	if (path[i - 1] != 'r' && path[i - 2] != 'e' && path[i - 3] != 'b' && path[i - 4] != '.')
+		return (0);
+	return (1);
+}
 
 // Frees the map array
-void ft_free_map(int height, t_map *map)
+void	ft_free_map(int height, t_map *map)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (i < height)
 	{
 		free(map->terrain[i]);
@@ -53,11 +66,12 @@ void ft_free_map(int height, t_map *map)
 	}
 }
 
-static int ft_rectangular_check(t_map *map)
+static int	ft_rectangular_check(t_map *map)
 {
 	int	i;
-	int len;
-	i=0;
+	int	len;
+
+	i = 0;
 	if (map->height < 3 || map->width < 3)
 		return (0);
 	i = 1;
@@ -66,7 +80,7 @@ static int ft_rectangular_check(t_map *map)
 		len = (int)ft_gnl_strlen(map->terrain[i], '\n');
 		if (ft_chrstr(map->terrain[i], '\n'))
 			len--;
-		if(len != map->width)
+		if (len != map->width)
 			return (0);
 		i++;
 	}
@@ -74,9 +88,9 @@ static int ft_rectangular_check(t_map *map)
 }
 
 // Returns 1 if the collectible, player and exit count meets the requirements
-static int ft_min_char_validator(t_map *map)
+static int	ft_min_char_validator(t_map *map)
 {
-	int valid_char_count;
+	int	valid_char_count;
 
 	valid_char_count = 0;
 	if (map->start_c != 1 || map->exit_c != 1)
@@ -88,17 +102,18 @@ static int ft_min_char_validator(t_map *map)
 	valid_char_count += map->space_c;
 	valid_char_count += map->collectible_c;
 	valid_char_count += map->wall_c;
-	if ((valid_char_count != (map->height * map->width)) || valid_char_count < 15)
+	if ((valid_char_count != (map->height * map->width))
+		|| valid_char_count < 15)
 		return (0);
 	return (1);
 }
 
 // int ft_map_wall_check
 // walls must be all around the map
-static int ft_map_frame_check(t_map *map)
+static int	ft_map_frame_check(t_map *map)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < map->width)
 	{

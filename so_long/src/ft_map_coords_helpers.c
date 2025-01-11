@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coords_helpers.c                                   :+:      :+:    :+:   */
+/*   ft_map_coords_helpers.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mina <mina@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:31:54 by honnguye          #+#    #+#             */
-/*   Updated: 2024/12/12 13:44:01 by mina             ###   ########.fr       */
+/*   Updated: 2025/01/11 09:37:17 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,41 @@ t_coord	*ft_coord_new(int x, int y)
 	new->y = y;
 	new->next = NULL;
 	return (new);
+}
+
+t_coord	*ft_get_nth_coord(t_coord *lst, int n)
+{
+	int	i;
+
+	i = 0;
+	while (i < n)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (lst);
+}
+
+void	ft_coord_del_one(t_coord **lst, int n)
+{
+	t_coord	*tmp;
+	t_coord	*prev;
+	int		i;
+
+	if (!lst)
+		return ;
+	i = 0;
+	tmp = *lst;
+	prev = NULL;
+	while (i < n)
+	{
+		prev = tmp;
+		tmp = tmp->next;
+		i++;
+	}
+	if (prev)
+		prev->next = tmp->next;
+	else
+		*lst = tmp->next;
+	free(tmp);
 }
