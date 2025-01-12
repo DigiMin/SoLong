@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:21:59 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/11 22:59:31 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/12 23:50:45 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,18 @@ int32_t	main(int argc, char **argv)
 {
 	t_graphics *graphics = malloc(sizeof(t_graphics));
 
-	graphics->map = ft_map_parser("./maps/test.ber");
-	// graphics->map = ft_map_parser("./maps/small.ber");
+	// graphics->map = ft_map_parser("./maps/test.ber");
+	if (argc != 2)
+	{
+		printf("Usage: %s <map.ber>\n", argv[0]);
+		exit(EXIT_FAILURE);
+	}
+
+	graphics->map = ft_map_parser(argv[1]);
 	if (!graphics->map)
 		printf("The map could not be used\n");
 	else
 		printf("The map is good as it is, YAY!\n");
-
 	// Start mlx
 	graphics->mlx = mlx_init(graphics->map->width * IMG_SIZE, graphics->map->height * IMG_SIZE, "Whole New World", false);
 	if (!graphics->mlx)
@@ -47,40 +52,7 @@ int32_t	main(int argc, char **argv)
 	graphics->can_move = 1;
 	graphics->last_key = 'd';
 
-	// int i;
-	// i = 0;
-	// while (i < ANIM_COUNT)
-	// {
-	// 	printf("Player_l[%d] z index: %d\n", i, graphics->player_l[i]->instances[0].z);
-	// 	i++;
-	// }
-	// 	i = 0;
-	// while (i < ANIM_COUNT)
-	// {
-	// 	printf("Player_r[%d] z index: %d\n", i, graphics->player_r[i]->instances[0].z);
-	// 	i++;
-	// }
-	// 	i = 0;
-	// while (i < ANIM_COUNT)
-	// {
-	// 	printf("Player_mr[%d] z index: %d\n", i, graphics->player_mr[i]->instances[0].z);
-	// 	i++;
-	// }
-	// 	i = 0;
-	// while (i < ANIM_COUNT)
-	// {
-	// 	printf("Player_ml[%d] z index: %d\n", i, graphics->player_ml[i]->instances[0].z);
-	// 	i++;
-	// }
-	// printf("Tower z index: %d\n", graphics->exit->instances[0].z);
-	// i=0;
-	// while (i < graphics->map->enemy_c)
-	// {
-	// 	printf("Enemy[%d] z index: %d\n", i, graphics->enemy->instances[i].z);
-	// 	i++;
-	// }
 	graphics->anim->z_exit = graphics->exit->instances[0].z;
-	printf("Tower z index: %d\n", graphics->exit->instances[0].z);
 	mlx_loop_hook(graphics->mlx, ft_hook, graphics);
 	mlx_loop(graphics->mlx);
 

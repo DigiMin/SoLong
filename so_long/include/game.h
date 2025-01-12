@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:18:38 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/11 20:43:22 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/12 23:47:29 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # include <MLX42/MLX42.h>
 # include "get_next_line.h"
 
-#define WIDTH 1920
-#define HEIGHT 1080
+#define MAX_WIDTH 30
+#define MAX_HEIGHT 16
 
 #define IMG_SIZE 64
 #define HALF_SIZE 32
@@ -73,9 +73,9 @@ typedef struct t_game_anim {
 	t_anim *player_mr;
 	t_anim *player_ml;
 	t_anim *player_dead;
-	// maybe create an array of t_anim, for each enemy instance one t_anim?
 	t_anim **enemy_cntdwn;
 	t_anim **enemy_explsn;
+	t_anim **numbers;
 	int32_t z_exit;
 	int *enemy_loops;
 } t_game_anim;
@@ -93,6 +93,7 @@ typedef struct t_graphics {
 	mlx_image_t *space;
 	mlx_image_t *collectable;
 	mlx_image_t *wall;
+	mlx_image_t **numbers;
 	mlx_t *mlx;
 	t_map *map;
 	t_game_anim *anim;
@@ -148,11 +149,19 @@ int	ft_can_exit(void *param);
 
 // enemy actions
 int	ft_enemy_touched(void *param);
-int ft_set_anim_enemy_img(t_graphics *graphics, char *path, mlx_image_t **asset);
+mlx_image_t **ft_set_anim_enemy_img(t_graphics *graphics, char *path, mlx_image_t **asset);
 void ft_switch_enemy_display(t_graphics *graphics, t_anim *asset, int instance);
 int	ft_enable_enemy_anim(t_graphics *graphics, t_game_anim *anim, char spec, int instance);
 void ft_animate_enemy(t_graphics *graphics, char spec, int instance);
 t_anim	*ft_set_anim_enemy(t_graphics *graphics, mlx_image_t **asset, char *path);
+void ft_disable_enemy_instance(t_graphics *graphics, t_game_anim *anim, char spec, int instance);
+void ft_disable_all_enemy_anim(t_graphics *graphics, t_game_anim *anim);
+int	ft_is_player_near(t_graphics *graphics);
 // int ft_set_multiple_anim_instances(t_graphics *graphics, mlx_image_t **animation, t_coord *coord);
+
+// display move count
+mlx_image_t **ft_draw_numbers(t_graphics *graphics);
+t_anim **ft_set_counter(t_graphics *graphics);
+void ft_switch_counter(t_anim **counter, int moves);
 
 #endif

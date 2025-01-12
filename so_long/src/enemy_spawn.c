@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:38:10 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/10 12:42:27 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/12 22:57:51 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,11 @@ int	ft_get_max_enemy_count(t_map *map)
 		d = 4;
 	else
 		d = 5;
+	printf("SPACE COUNT: %d\n", map->space_c);
+	printf("DIVISOR: %d\n", d);
 	// TODO: if the map is small reduce the enemy count
 	count = ft_get_random_spawn_index(map) % d;
+	printf("ENEMY COUNT: %d\n", count);
 	if (count == 0)
 		count++;
 	return (count);

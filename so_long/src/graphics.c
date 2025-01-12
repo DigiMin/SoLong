@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:25:49 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/11 22:43:32 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/12 22:56:26 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ int	ft_allocate_aimg(t_graphics *graphics)
 	graphics->enemy_explsn = malloc(sizeof(mlx_image_t *) * ANIM_COUNT);
 	if (!graphics->enemy_explsn)
 		return (0);
+	graphics->numbers = malloc(sizeof(mlx_image_t *) * 10);
+	if (!graphics->numbers)
+		return (0);
 	return (1);
 }	
 
@@ -50,6 +53,8 @@ int	ft_set_map_img(t_graphics *graphics, t_map *map)
 	graphics->collectable = ft_draw_asset(graphics->mlx, collectable, map->collectibles);
 	graphics->exit = ft_draw_exit(graphics->mlx, tower, map->exit);
 	ft_spawn_enemies(graphics, "./graphics/Enemy/Enemy.png");
+	printf("ENEMIES SPAWNED\n");
+	printf("Enemy count: %d\n", map->enemy_c);
 	return (1);
 }
 
@@ -63,11 +68,11 @@ int	ft_switch_exit_z(void *param)
 	&& player->y - HALF_SIZE > exit->instances[0].y - IMG_SIZE && player->y + OSET < exit->instances[0].y + IMG_SIZE + HALF_SIZE)
 	{
 		mlx_set_instance_depth(graphics->exit->instances, graphics->player_dead[ANIM_COUNT - 1]->instances[0].z + 1);
-		return (/*printf("EXIT INSTANCES MODED\n"),*/ 1);
+		return (1);
 	}
 	if (graphics->exit->instances->z == graphics->player_dead[ANIM_COUNT - 1]->instances[0].z + 1)
 		mlx_set_instance_depth(graphics->exit->instances, graphics->anim->z_exit);
-	return (/*printf("EXIT Z NOT MODDED\n"),*/ 0);
+	return (0);
 }
 
 

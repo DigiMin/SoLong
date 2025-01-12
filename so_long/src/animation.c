@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:58:16 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/11 22:36:45 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/12 23:56:23 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,13 @@ t_game_anim *ft_init_game_anim(t_graphics *graphics)
 	anim = malloc(sizeof(t_game_anim));
 	if (!anim)
 		return (NULL);
+	anim->numbers = ft_set_counter(graphics);
 	anim->enemy_cntdwn = malloc(sizeof(t_anim *) * graphics->map->enemy_c);
 	anim->enemy_explsn = malloc(sizeof(t_anim *) * graphics->map->enemy_c);
 	anim->enemy_loops = malloc(sizeof(int) * graphics->map->enemy_c);
 	i = 0;
+	graphics->enemy_cntdwn = ft_set_anim_enemy_img(graphics, "./graphics/Enemy/Enemy", graphics->enemy_cntdwn);
+	graphics->enemy_explsn = ft_set_anim_enemy_img(graphics, "./graphics/Effects/Explosion", graphics->enemy_explsn);
 	while (i < graphics->map->enemy_c)
 	{
 		anim->enemy_cntdwn[i] = ft_set_anim_enemy(graphics, graphics->enemy_cntdwn, "./graphics/Enemy/Enemy");
@@ -100,6 +103,7 @@ t_game_anim *ft_init_game_anim(t_graphics *graphics)
 		anim->enemy_loops[i] = 0;
 		i++;
 	}
+	ft_disable_all_enemy_anim(graphics, anim);
 	anim->player_r = ft_set_anim_img(graphics, graphics->player_r, "./graphics/Warrior/Warrior_r", graphics->map->start);
 	anim->player_l = ft_set_anim_img(graphics, graphics->player_l, "./graphics/Warrior/Warrior_l", graphics->map->start);
 	anim->player_mr = ft_set_anim_img(graphics, graphics->player_mr, "./graphics/Warrior/Warrior_rmove", graphics->map->start);
@@ -159,7 +163,8 @@ void ft_switch_display(t_anim *asset)
 		}
 		return ;
 	}
-	while (i < ANIM_COUNT)
+	i = 0;
+	while (i < asset->anim_count)
 	{
 		if (i == asset->anim_frame)
 		{
