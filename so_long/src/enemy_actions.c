@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 22:28:40 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/12 16:35:10 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/13 10:33:54 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	ft_is_player_near(t_graphics *graphics)
 
 	while (i < graphics->map->enemy_c)
 	{
-		if (player->x - OSET > enemy[i].x - (IMG_SIZE * 1.5) && player->x + OSET < enemy[i].x + (IMG_SIZE * 1.5)\
-		&& player->y - HALF_SIZE > enemy[i].y - (IMG_SIZE * 1.5) && player->y + OSET < enemy[i].y + (IMG_SIZE * 1.5) && graphics->anim->enemy_loops[i] == 4)
+		if (player->x - OSET > enemy[i].x - (IMG_SIZE * 1.3) && player->x + OSET < enemy[i].x + (IMG_SIZE * 1.3)\
+		&& player->y - HALF_SIZE > enemy[i].y - (IMG_SIZE * 1.3) && player->y + OSET < enemy[i].y + (IMG_SIZE * 1.3) && graphics->anim->enemy_loops[i] == 4)
 			return (1);
 		i++;
 	}

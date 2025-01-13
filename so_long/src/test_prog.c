@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:21:59 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/12 23:50:45 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:34:47 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int32_t	main(int argc, char **argv)
 	}
 	ft_set_map_img(graphics, graphics->map);
 	graphics->anim = ft_init_game_anim(graphics);
-	printf("ANIM inited in MAIN\n");
 	graphics->map->collected = 0;
 	graphics->can_move = 1;
 	graphics->last_key = 'd';
@@ -57,10 +56,9 @@ int32_t	main(int argc, char **argv)
 	mlx_loop(graphics->mlx);
 
 	// TODO: FREEEEEEEEEEEEEEEEEE
-	// TODO: max width and max height of map
 	// TODO: use ft_printf to print the moves
-	// TODO: put the numbers on the screen to show the moves
 	// TODO: refactor the code
+	// TODO: better error handling
 	// TODO: check this function mlx_close_window(mlx_t* mlx) / mlx_delete_image(mlx, img);
 	// // Optional, terminate will clean up any leftovers, this is just to demonstrate.
 	// mlx_delete_texture(texture);

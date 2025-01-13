@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:59:43 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/12 23:53:42 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/13 10:36:29 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ mlx_image_t **ft_draw_numbers(t_graphics *graphics)
 	int x;
 	char *c;
 
-	x = (graphics->map->width - 3) * 64;
 	i = 0;
 	while (i < 10)
 	{
 		c = ft_itoa(i);
 		graphics->numbers[i] = ft_load_png(graphics->mlx, ft_multi_strjoin(3, "./graphics/UI/", c, ".png"));
 		free(c);
-		j = 0;
 		printf("Number: %d\n", i);
+		j = 0;
+		x = (graphics->map->width - 3) * 64;
 		while (j < 6)
 		{
 			printf("Instance: %d\n", j);

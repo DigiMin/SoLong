@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:25:49 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/12 22:56:26 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/13 10:40:40 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ int	ft_set_map_img(t_graphics *graphics, t_map *map)
 	graphics->collectable = ft_draw_asset(graphics->mlx, collectable, map->collectibles);
 	graphics->exit = ft_draw_exit(graphics->mlx, tower, map->exit);
 	ft_spawn_enemies(graphics, "./graphics/Enemy/Enemy.png");
-	printf("ENEMIES SPAWNED\n");
-	printf("Enemy count: %d\n", map->enemy_c);
 	return (1);
 }
 

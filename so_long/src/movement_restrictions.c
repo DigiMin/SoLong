@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:22:47 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/12 23:51:02 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/13 13:33:30 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void ft_move_player(t_graphics *graphics, char dia, int pix)
 	if (!ft_is_space(graphics, xm, ym, dia))
 		return ;
 	ft_switch_exit_z(graphics);
-	ft_switch_counter(graphics->anim->numbers, graphics->map->move_c);
 	ft_set_pimage_coord(graphics, xm, ym);
 	graphics->map->move_c++;
+	ft_switch_counter(graphics->anim->numbers, graphics->map->move_c);
 	printf("Move count: %d\n", graphics->map->move_c);
 }
 
@@ -86,10 +86,7 @@ void ft_hook(void* param)
 	{
 		instance = ft_enemy_touched(param);
 		if (instance >= 0)
-		{
-			printf("Enemy touched: %d\n", instance);
 			graphics->enemy->instances[instance].enabled = false;
-		}
 	}
 	i = 0;
 	while (i < graphics->map->enemy_c)

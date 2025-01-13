@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:18:38 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/12 23:47:29 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/13 14:30:48 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@
 #define MAX_WIDTH 30
 #define MAX_HEIGHT 16
 
-#define IMG_SIZE 64
+#define IMG_SIZE 4
 #define HALF_SIZE 32
 #define OFFSET 24
 #define OSET 44
 
-#define PLAYER_SPEED 4
+#define PLAYER_SPEED 64
 #define ANIM_COUNT 6
 #define ANIM_SPEED 9
 
