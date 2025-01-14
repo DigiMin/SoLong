@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:22:47 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/13 13:33:30 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/14 19:43:47 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 
 int ft_set_pimage_coord(t_graphics *graphics, int x, int y);
 
-void ft_move_player(t_graphics *graphics, char dia, int pix)
+void ft_move_player(t_graphics *graphics, e_axes dia, int pix)
 {
 	int xm;
 	int ym;
 
 	ym = graphics->player_r[0]->instances[0].y;
 	xm = graphics->player_r[0]->instances[0].x;
-	if (dia == 'x')
+	if (dia == X)
 		xm += pix;
-	else if (dia == 'y')
+	else if (dia == Y)
+	{
+		ft_animate(graphics->anim, graphics->last_anim_dir);
 		ym += pix;
-	if (!ft_is_space(graphics, xm, ym, dia))
+	}
+	if (!ft_is_space(graphics, xm, ym))
 		return ;
 	ft_switch_exit_z(graphics);
 	ft_set_pimage_coord(graphics, xm, ym);
@@ -56,9 +59,8 @@ int ft_set_pimage_coord(t_graphics *graphics, int x, int y)
 	return (1);
 }
 
-int	ft_is_space(t_graphics *graphics, int xm, int ym, char dia)
+int	ft_is_space(t_graphics *graphics, int xm, int ym)
 {
-	mlx_instance_t *player = graphics->player_r[0]->instances;
 	int	x[2];
 	int	y[2];
 
@@ -74,17 +76,13 @@ int	ft_is_space(t_graphics *graphics, int xm, int ym, char dia)
 	return (0);
 }
 
-void ft_hook(void* param)
+void ft_enemy_handler(t_graphics *graphics)
 {
-	t_graphics *graphics = param;
 	int instance;
 	int i;
-
-	if (mlx_is_key_down(graphics->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(graphics->mlx);
 	if (graphics->map->enemy_c)
 	{
-		instance = ft_enemy_touched(param);
+		instance = ft_enemy_touched(graphics);
 		if (instance >= 0)
 			graphics->enemy->instances[instance].enabled = false;
 	}
@@ -94,54 +92,59 @@ void ft_hook(void* param)
 		if (ft_is_player_near(graphics) && graphics->anim->enemy_loops[i] == 4)
 		{
 			graphics->can_move = 0;
-			ft_animate(graphics->anim, 'x');
 		}
 		if (graphics->anim->enemy_loops[i] > 0 && graphics->anim->enemy_loops[i] < 4)
 		{
-			ft_animate_enemy(graphics, 'c', i);
+			ft_animate_enemy(graphics, ENEMY_CNTDWN, i);
 		}
 		else if (graphics->anim->enemy_loops[i] == 4)
 		{
-			ft_disable_enemy_instance(graphics, graphics->anim, 'c', i);
-			ft_animate_enemy(graphics, 'b', i);
+			ft_disable_enemy_instance(graphics->anim, ENEMY_CNTDWN, i);
+			ft_animate_enemy(graphics, ENEMY_EXPLSN, i);
 		}
 		else if (graphics->anim->enemy_loops[i] == 5)
 		{
-			ft_disable_enemy_instance(graphics, graphics->anim, 'b', i);
+			ft_disable_enemy_instance(graphics->anim, ENEMY_EXPLSN, i);
 			graphics->anim->enemy_loops[i] = 10;
 		}
 		i++;
 	}
+}
+
+void ft_hook(void* param)
+{
+	t_graphics *graphics = param;
+
+	if (mlx_is_key_down(graphics->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(graphics->mlx);
+	ft_enemy_handler(graphics);
 	if (!graphics->can_move)
 	{
-		ft_animate(graphics->anim, 'x');
+		ft_animate(graphics->anim, PLAYER_DEAD);
 		return ;
 	}
-	if (graphics->last_key == 'a')
-		ft_animate(graphics->anim, 'l');
-	else if (graphics->last_key == 'd')
-		ft_animate(graphics->anim, 'r');
+	if (graphics->last_anim_dir == PLAYER_ML)
+		ft_animate(graphics->anim, PLAYER_L);
+	else if (graphics->last_anim_dir == PLAYER_MR)
+		ft_animate(graphics->anim, PLAYER_R);
 	if (mlx_is_key_down(graphics->mlx, MLX_KEY_W) || mlx_is_key_down(graphics->mlx, MLX_KEY_UP))
-	{
-		ft_animate(graphics->anim, graphics->last_key);
-		ft_move_player(graphics, 'y', -PLAYER_SPEED);
-	}
+		ft_move_player(graphics, Y, -PLAYER_SPEED);
 	if (mlx_is_key_down(graphics->mlx, MLX_KEY_S) || mlx_is_key_down(graphics->mlx, MLX_KEY_DOWN))
 	{
-		ft_animate(graphics->anim, graphics->last_key);
-		ft_move_player(graphics, 'y', +PLAYER_SPEED);
+		// ft_animate(graphics->anim, graphics->last_anim_dir);
+		ft_move_player(graphics, Y, +PLAYER_SPEED);
 	}
 	if (mlx_is_key_down(graphics->mlx, MLX_KEY_A) || mlx_is_key_down(graphics->mlx, MLX_KEY_LEFT))
 	{
-		graphics->last_key = 'a';
-		ft_animate(graphics->anim, 'a');
-		ft_move_player(graphics, 'x', -PLAYER_SPEED);
+		graphics->last_anim_dir = PLAYER_ML;
+		ft_animate(graphics->anim, PLAYER_ML);
+		ft_move_player(graphics, X, -PLAYER_SPEED);
 	}
 	if (mlx_is_key_down(graphics->mlx, MLX_KEY_D) || mlx_is_key_down(graphics->mlx, MLX_KEY_RIGHT))
 	{
-		graphics->last_key = 'd';
-		ft_animate(graphics->anim, 'd');
-		ft_move_player(graphics, 'x', +PLAYER_SPEED);
+		graphics->last_anim_dir = PLAYER_MR;
+		ft_animate(graphics->anim, PLAYER_MR);
+		ft_move_player(graphics, X, +PLAYER_SPEED);
 	}
 	ft_collect(param);
 	if (ft_can_exit(param))

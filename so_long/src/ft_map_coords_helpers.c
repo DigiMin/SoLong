@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:31:54 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/11 09:37:17 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/13 16:13:40 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,26 +78,26 @@ t_coord	*ft_get_nth_coord(t_coord *lst, int n)
 	return (lst);
 }
 
-void	ft_coord_del_one(t_coord **lst, int n)
-{
-	t_coord	*tmp;
-	t_coord	*prev;
-	int		i;
+// void	ft_coord_del_one(t_coord **lst, int n)
+// {
+// 	t_coord	*tmp;
+// 	t_coord	*prev;
+// 	int		i;
 
-	if (!lst)
-		return ;
-	i = 0;
-	tmp = *lst;
-	prev = NULL;
-	while (i < n)
-	{
-		prev = tmp;
-		tmp = tmp->next;
-		i++;
-	}
-	if (prev)
-		prev->next = tmp->next;
-	else
-		*lst = tmp->next;
-	free(tmp);
-}
+// 	if (!lst)
+// 		return ;
+// 	i = 0;
+// 	tmp = *lst;
+// 	prev = NULL;
+// 	while (i < n)
+// 	{
+// 		prev = tmp;
+// 		tmp = tmp->next;
+// 		i++;
+// 	}
+// 	if (prev)
+// 		prev->next = tmp->next;
+// 	else
+// 		*lst = tmp->next;
+// 	free(tmp);
+// }

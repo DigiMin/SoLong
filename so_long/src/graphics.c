@@ -6,11 +6,35 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:25:49 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/13 10:40:40 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:34:11 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
+
+int ft_init_graphics(t_graphics *graphics, char *path)
+{
+	graphics->map = ft_map_parser(path);
+	if (!graphics->map)
+		printf("The map could not be used\n");
+	else
+		printf("The map is good as it is, YAY!\n");
+	// Start mlx
+	graphics->mlx = mlx_init(graphics->map->width * IMG_SIZE, graphics->map->height * IMG_SIZE, "Whole New World", false);
+	if (!graphics->mlx)
+	{
+		mlx_terminate(graphics->mlx);
+        error();
+	}
+	ft_set_map_img(graphics, graphics->map);
+	graphics->anim = ft_init_game_anim(graphics);
+	graphics->map->collected = 0;
+	graphics->can_move = 1;
+	graphics->last_anim_dir = PLAYER_MR;
+	printf("EVERYTHING INITED\n");
+	graphics->anim->z_exit = graphics->exit->instances[0].z;
+	return (1);
+}
 
 int	ft_allocate_aimg(t_graphics *graphics)
 {

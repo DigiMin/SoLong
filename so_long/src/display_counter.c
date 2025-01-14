@@ -6,47 +6,55 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:59:43 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/13 10:36:29 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/13 22:54:17 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
-mlx_image_t **ft_draw_numbers(t_graphics *graphics)
+mlx_image_t *ft_draw_number(t_graphics *graphics, int number);
+
+void	ft_draw_numbers(t_graphics *graphics)
 {
 	int i;
-	int j;
-	int x;
-	char *c;
 
 	i = 0;
 	while (i < 10)
 	{
-		c = ft_itoa(i);
-		graphics->numbers[i] = ft_load_png(graphics->mlx, ft_multi_strjoin(3, "./graphics/UI/", c, ".png"));
-		free(c);
-		printf("Number: %d\n", i);
-		j = 0;
-		x = (graphics->map->width - 3) * 64;
-		while (j < 6)
-		{
-			printf("Instance: %d\n", j);
-			mlx_image_to_window(graphics->mlx, graphics->numbers[i], x, 0);
-			x += HALF_SIZE;
-			j++;
-		}
+		graphics->numbers[i] = ft_draw_number(graphics, i);
 		i++;
 	}
-	return (graphics->numbers);
+}
+
+mlx_image_t *ft_draw_number(t_graphics *graphics, int number)
+{
+	char *c;
+	int i;
+	int x;
+	mlx_image_t *img;
+
+	c = ft_itoa(number);
+	img = ft_load_png(graphics->mlx, ft_multi_strjoin(3, "./graphics/UI/", c, ".png"));
+	if (!img)
+		return (NULL);
+	free(c);
+	x = (graphics->map->width - 3) * 64;
+	i = 0;
+	while (i < 6)
+	{
+		mlx_image_to_window(graphics->mlx, img, x, 0);
+		x += HALF_SIZE;
+		i++;
+	}
+	return (img);
 }
 
 t_anim **ft_set_counter(t_graphics *graphics)
 {
 	t_anim **counter;
-	mlx_image_t **numbers;
 	int i;
 
-	numbers = ft_draw_numbers(graphics);
+	ft_draw_numbers(graphics);
 	counter = malloc(sizeof(t_anim *) * 6);
 	if (!counter)
 		return (NULL);
@@ -61,7 +69,7 @@ t_anim **ft_set_counter(t_graphics *graphics)
 		counter[i]->anim_speed = 0;
 		counter[i]->sleep = 0;
 		counter[i]->enabled = 1;
-		counter[i]->anim_images = numbers;
+		counter[i]->anim_images = graphics->numbers;
 		i++;
 	}
 	ft_switch_counter(counter, graphics->map->move_c);
@@ -80,7 +88,6 @@ void ft_switch_counter(t_anim **counter, int moves)
 	{
 		j = 0;
 		counter[i]->anim_frame = count % 10;
-		printf("Counter[%d]: %d\n", i, counter[i]->anim_frame);
 		while (j < 10)
 		{
 			if (j == counter[i]->anim_frame)
