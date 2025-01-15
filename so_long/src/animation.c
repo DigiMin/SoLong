@@ -6,15 +6,15 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:58:16 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/14 17:18:00 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/15 23:40:36 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
-int			ft_enable_anim(t_game_anim *anim, e_anim_spec spec);
+int			ft_enable_anim(t_game_anim *anim, t_anim_spec spec);
 
-void	ft_animate(void *param, e_anim_spec spec)
+void	ft_animate(void *param, t_anim_spec spec)
 {
 	t_game_anim	*anim;
 	t_anim		*sprite;
@@ -34,7 +34,7 @@ void	ft_animate(void *param, e_anim_spec spec)
 	ft_switch_display(sprite);
 }
 
-t_anim	*ft_spec_anim(t_game_anim *anim, e_anim_spec spec, int instance)
+t_anim	*ft_spec_anim(t_game_anim *anim, t_anim_spec spec, int instance)
 {
 	if (spec == PLAYER_R)
 		return (anim->player_r);
@@ -53,7 +53,7 @@ t_anim	*ft_spec_anim(t_game_anim *anim, e_anim_spec spec, int instance)
 	return (NULL);
 }
 
-int	ft_enable_anim(t_game_anim *anim, e_anim_spec spec)
+int	ft_enable_anim(t_game_anim *anim, t_anim_spec spec)
 {
 	anim->player_r->enabled = 0;
 	anim->player_l->enabled = 0;
@@ -83,7 +83,7 @@ t_game_anim	*ft_init_game_anim(t_graphics *graphics)
 	t_game_anim	*anim;
 	int			i;
 
-	if (!ft_allocate_aimg(graphics))
+	if (ft_allocate_aimg(graphics) != SUCCESS)
 		return (NULL);
 	anim = malloc(sizeof(t_game_anim));
 	if (!anim)
@@ -154,7 +154,8 @@ t_anim	*ft_set_anim_img(t_graphics *graphics, mlx_image_t **asset, char *path,
 
 /*
 
-	* @brief Switches the display of each animation based on which anim_frame is active
+ * @brief Switches the display of each animation
+ * based on which anim_frame is active
  *		- if the animation is not enabled, all images are disabled
  *
  * @param asset The animation structure

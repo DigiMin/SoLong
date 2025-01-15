@@ -6,17 +6,17 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:59:43 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/13 22:54:17 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:54:20 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
-mlx_image_t *ft_draw_number(t_graphics *graphics, int number);
+mlx_image_t	*ft_draw_number(t_graphics *graphics, int number);
 
 void	ft_draw_numbers(t_graphics *graphics)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < 10)
@@ -26,15 +26,16 @@ void	ft_draw_numbers(t_graphics *graphics)
 	}
 }
 
-mlx_image_t *ft_draw_number(t_graphics *graphics, int number)
+mlx_image_t	*ft_draw_number(t_graphics *graphics, int number)
 {
-	char *c;
-	int i;
-	int x;
-	mlx_image_t *img;
+	char		*c;
+	int			i;
+	int			x;
+	mlx_image_t	*img;
 
 	c = ft_itoa(number);
-	img = ft_load_png(graphics->mlx, ft_multi_strjoin(3, "./graphics/UI/", c, ".png"));
+	img = ft_load_png(graphics->mlx, ft_multi_strjoin(3, "./graphics/UI/", c,
+				".png"));
 	if (!img)
 		return (NULL);
 	free(c);
@@ -49,10 +50,10 @@ mlx_image_t *ft_draw_number(t_graphics *graphics, int number)
 	return (img);
 }
 
-t_anim **ft_set_counter(t_graphics *graphics)
+t_anim	**ft_set_counter(t_graphics *graphics)
 {
-	t_anim **counter;
-	int i;
+	t_anim	**counter;
+	int		i;
 
 	ft_draw_numbers(graphics);
 	counter = malloc(sizeof(t_anim *) * 6);
@@ -76,11 +77,11 @@ t_anim **ft_set_counter(t_graphics *graphics)
 	return (counter);
 }
 
-void ft_switch_counter(t_anim **counter, int moves)
+void	ft_switch_counter(t_anim **counter, int moves)
 {
-	int i;
-	int j;
-	int count;
+	int	i;
+	int	j;
+	int	count;
 
 	i = 5;
 	count = moves;

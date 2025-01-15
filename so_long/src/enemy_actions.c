@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 22:28:40 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/14 19:06:03 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/15 23:47:24 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,15 @@ int	ft_is_player_near(t_graphics *graphics)
 	i = 0;
 	while (i < graphics->map->enemy_c)
 	{
-		if (player->x - OSET > enemy[i].x - (IMG_SIZE * 1.3) && 
-			player->x + OSET < enemy[i].x + (IMG_SIZE * 1.3) && 
-			player->y - HALF_SIZE > enemy[i].y - (IMG_SIZE * 1.3) && 
-			player->y + OSET < enemy[i].y + (IMG_SIZE * 1.3) &&
-			graphics->anim->enemy_loops[i] == 4)
-			return (1);
+		if (player->x - OSET > enemy[i].x - (IMG_SIZE * 1.3)
+			&& player->x + OSET < enemy[i].x + (IMG_SIZE * 1.3)
+			&& player->y - HALF_SIZE > enemy[i].y - (IMG_SIZE * 1.3)
+			&& player->y + OSET < enemy[i].y + (IMG_SIZE * 1.3)
+			&& graphics->anim->enemy_loops[i] == 4)
+			return (NOT_NEAR);
 		i++;
 	}
-	return (0);
+	return (SUCCESS);
 }
 
 t_anim	*ft_set_enemy_anim(mlx_image_t **asset)
@@ -100,42 +100,40 @@ mlx_image_t	**ft_set_enemy_img(t_graphics *graphics, char *path,
 	return (enemy);
 }
 
-void	ft_animate_enemy(t_graphics *graphics, e_anim_spec spec, int instance)
+void	ft_animate_enemy(t_graphics *graphics, t_anim_spec spec, int i)
 {
 	t_game_anim	*anim;
 	t_anim		*sprite;
 
 	anim = graphics->anim;
-	sprite = ft_spec_anim(anim, spec, instance);
-	ft_enable_enemy_anim(graphics, spec, instance);
+	sprite = ft_spec_anim(anim, spec, i);
+	ft_enable_enemy_anim(graphics, spec, i);
 	if (sprite->sleep == sprite->anim_speed)
 	{
 		if (sprite->anim_frame == sprite->anim_count - 1)
 		{
 			sprite->anim_frame = 0;
-			anim->enemy_loops[instance]++;
+			anim->enemy_loops[i]++;
 		}
 		sprite->anim_frame++;
 		sprite->sleep = 0;
 	}
 	sprite->sleep++;
-	ft_switch_enemy_display(graphics, sprite, instance);
+	ft_switch_enemy_display(graphics, sprite, i);
 }
 
-int	ft_enable_enemy_anim(t_graphics *graphics, e_anim_spec spec, int instance)
+int	ft_enable_enemy_anim(t_graphics *graphics, t_anim_spec spec, int i)
 {
 	t_game_anim	*anim;
 
 	anim = graphics->anim;
 	if (spec == ENEMY_CNTDWN)
 	{
-		ft_switch_enemy_display(graphics, anim->enemy_cntdwn[instance],
-			instance);
+		ft_switch_enemy_display(graphics, anim->enemy_cntdwn[i], i);
 	}
 	else if (spec == ENEMY_EXPLSN)
 	{
-		ft_switch_enemy_display(graphics, anim->enemy_explsn[instance],
-			instance);
+		ft_switch_enemy_display(graphics, anim->enemy_explsn[i], i);
 	}
 	return (1);
 }
@@ -153,7 +151,7 @@ void	ft_disable_all_enemy_anim(t_graphics *graphics, t_game_anim *anim)
 	}
 }
 
-void	ft_disable_enemy_instance(t_game_anim *anim, e_anim_spec spec, int i)
+void	ft_disable_enemy_instance(t_game_anim *anim, t_anim_spec spec, int i)
 {
 	int	j;
 

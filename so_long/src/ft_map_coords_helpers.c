@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:31:54 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/13 16:13:40 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:54:49 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_coord	*ft_coord_last(t_coord *lst)
 t_coord	*ft_coord_new(int x, int y)
 {
 	t_coord	*new;
+
 	new = malloc(sizeof(t_coord));
 	if (!new)
 		return (NULL);

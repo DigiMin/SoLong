@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:38:10 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/14 14:48:21 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/15 23:43:21 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,41 @@ static int	ft_get_random_spawn_index(t_map *map);
 static int	ft_is_enemy_spawnable(t_map *map, t_coord *coord);
 static int	ft_not_around_player(t_map *map, t_coord *coord);
 
-void	ft_spawn_enemies(t_graphics *graphics, char *path)
+int	ft_spawn_enemies(t_map *map)
 {
-	int		random_pos;
-	t_coord	*coord;
 	int		i;
 
 	i = 0;
-	graphics->map->enemy_c = ft_get_max_enemy_count(graphics->map);
-	if (graphics->map->enemy_c == 0)
-		return ;
-	while (i < graphics->map->enemy_c)
+	map->enemy_c = ft_get_max_enemy_count(map);
+	if (map->enemy_c == 0)
+		return (SUCCESS);
+	while (i < map->enemy_c)
 	{
-		random_pos = ft_get_random_spawn_index(graphics->map);
-		coord = ft_get_nth_coord(graphics->map->spaces, random_pos);
-		while (!ft_is_enemy_spawnable(graphics->map, coord))
-		{
-			random_pos = ft_get_random_spawn_index(graphics->map);
-			coord = ft_get_nth_coord(graphics->map->spaces, random_pos);
-		}
-		ft_coord_add_back(&graphics->map->enemy, ft_coord_new(coord->x,
-				coord->y));
+		if (ft_add_enemy(map) != SUCCESS)
+			return (MALLOC);
 		i++;
 	}
-	graphics->enemy = ft_draw_asset(graphics->mlx, path, graphics->map->enemy);
+	return (SUCCESS);
+}
+
+int ft_add_enemy(t_map *map)
+{
+	int		random_pos;
+	t_coord	*coord;
+	t_coord	*enemy;
+
+	random_pos = ft_get_random_spawn_index(map);
+	coord = ft_get_nth_coord(map->spaces, random_pos);
+	while (ft_is_enemy_spawnable(map, coord) != SUCCESS)
+	{
+		random_pos = ft_get_random_spawn_index(map);
+		coord = ft_get_nth_coord(map->spaces, random_pos);
+	}
+	enemy = ft_coord_new(coord->x, coord->y);
+	if (!enemy)
+		return (MALLOC);
+	ft_coord_add_back(&map->enemy, enemy);
+	return (SUCCESS);
 }
 
 static int	ft_get_max_enemy_count(t_map *map)
@@ -49,7 +60,7 @@ static int	ft_get_max_enemy_count(t_map *map)
 	int	d;
 
 	if (map->space_c < 10)
-		return (0);
+		return (SUCCESS);
 	if (map->space_c < 20)
 		d = 2;
 	else if (map->space_c < 30)
@@ -81,36 +92,37 @@ static int	ft_get_random_spawn_index(t_map *map)
 static int	ft_is_enemy_spawnable(t_map *map, t_coord *coord)
 {
 	if (map->terrain[coord->y][coord->x] != '0')
-		return (0);
+		return (ENEMY_NOT_SPAWNABLE);
 	if (map->terrain[coord->y + 1][coord->x] == 'E')
-		return (0);
+		return (ENEMY_NOT_SPAWNABLE);
 	if (map->terrain[coord->y][coord->x] == 'E')
-		return (0);
+		return (ENEMY_NOT_SPAWNABLE);
 	if (map->terrain[coord->y][coord->x] == 'C')
-		return (0);
-	if (!ft_not_around_player(map, coord))
-		return (0);
-	return (1);
+		return (ENEMY_NOT_SPAWNABLE);
+	if (ft_not_around_player(map, coord) != SUCCESS)
+		return (ENEMY_NOT_SPAWNABLE);
+	return (SUCCESS);
 }
+
 static int	ft_not_around_player(t_map *map, t_coord *coord)
 {
 	if (map->terrain[coord->y][coord->x] == 'P')
-		return (0);
+		return (ENEMY_NOT_SPAWNABLE);
 	if (map->terrain[coord->y + 1][coord->x] == 'P')
-		return (0);
+		return (ENEMY_NOT_SPAWNABLE);
 	if (map->terrain[coord->y - 1][coord->x] == 'P')
-		return (0);
+		return (ENEMY_NOT_SPAWNABLE);
 	if (map->terrain[coord->y][coord->x + 1] == 'P')
-		return (0);
+		return (ENEMY_NOT_SPAWNABLE);
 	if (map->terrain[coord->y][coord->x - 1] == 'P')
-		return (0);
+		return (ENEMY_NOT_SPAWNABLE);
 	if (map->terrain[coord->y + 1][coord->x + 1] == 'P')
-		return (0);
+		return (ENEMY_NOT_SPAWNABLE);
 	if (map->terrain[coord->y - 1][coord->x - 1] == 'P')
-		return (0);
+		return (ENEMY_NOT_SPAWNABLE);
 	if (map->terrain[coord->y - 1][coord->x + 1] == 'P')
-		return (0);
+		return (ENEMY_NOT_SPAWNABLE);
 	if (map->terrain[coord->y + 1][coord->x - 1] == 'P')
-		return (0);
-	return (1);
+		return (ENEMY_NOT_SPAWNABLE);
+	return (SUCCESS);
 }

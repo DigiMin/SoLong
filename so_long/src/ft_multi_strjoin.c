@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:59:28 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/14 19:07:59 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/15 21:24:59 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,20 @@
 static char	*ft_strjoin(char *s1, char *s2);
 
 /*
- * @brief Joins multiple strings together into a single string. The result needs to be freed after use.
- * 
- * This function uses `va_list` to handle a variable number of string arguments. The exact number of strings 
- * to join must be provided in the `count` parameter. If the provided count is incorrect undefined behavior may occur.
- * 
+ * @brief Joins multiple strings together into a single string. 
+ * The result needs to be freed after use.
+ *
+ * This function uses `va_list` to handle a variable number of string arguments.
+ *  The exact number of strings
+
+ * to join must be provided in the `count` parameter. 
+ * If the provided count is incorrect undefined behavior may occur.
+ *
  * @param count The exact number of strings to join.
  * @param ...   A variable number of string arguments to join together.
- * 
- * @return A new string containing all the joined strings, or `NULL` if memory allocation fails or if both strings have
+ *
+ * @return A new string containing all the joined strings,
+	or `NULL` if memory allocation fails or if both strings have
  *         `NULL` value.
  */
 char	*ft_multi_strjoin(int count, ...)
@@ -36,7 +41,7 @@ char	*ft_multi_strjoin(int count, ...)
 	if (!count)
 		return (NULL);
 	if (count == 1)
-		return (va_end(ap), va_arg(ap, char*));
+		return (va_end(ap), va_arg(ap, char *));
 	new = NULL;
 	while (count)
 	{
@@ -50,15 +55,21 @@ char	*ft_multi_strjoin(int count, ...)
 }
 
 /*
- * @brief Joins two strings together into a new string. The result needs to be freed after use.
- * 
- * If memory allocation fails, the function returns `NULL`. If the first string (`s1`) exists, 
- * it will be freed before returning the new joined string. The resulting string is always null-terminated.
- * 
+
+ * @brief Joins two strings together into a new string. 
+ * The result needs to be freed after use.
+ *
+ * If memory allocation fails,
+ * the function returns `NULL`. If the first string (`s1`) exists,
+
+ * it will be freed before returning the new joined string. 
+ * The resulting string is always null-terminated.
+ *
  * @param s1 The first string to join, may be `NULL`.
  * @param s2 The second string to join, may also be `NULL`.
- * 
- * @return A new string containing the result of joining `s1` and `s2`, or `NULL` if memory allocation fails.
+ *
+ * @return A new string containing the result of joining `s1` and `s2`,
+	or `NULL` if memory allocation fails.
  */
 static char	*ft_strjoin(char *s1, char *s2)
 {
