@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:11:29 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/17 10:12:34 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:19:01 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ static int	ft_rectangular_check(t_map *map)
 	int	len;
 
 	i = 0;
-	if (map->height < 3 || map->width < 3 || map->width > MAX_WIDTH
-		|| map->height > MAX_HEIGHT)
+	if (map->height < 3 || map->width < 3 || map->width >= MAX_WIDTH
+		|| map->height >= MAX_HEIGHT)
 		return (WRONG_MAP_SIZE);
 	i = 1;
 	while (map->height > i)
