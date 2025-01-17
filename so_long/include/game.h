@@ -6,12 +6,13 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:18:38 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/16 00:01:14 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:52:54 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_H
 # define GAME_H
+# include "ft_printf.h"
 # include "get_next_line.h"
 # include <MLX42/MLX42.h>
 # include <stdbool.h>
@@ -19,6 +20,7 @@
 # include <stdlib.h>
 # include <string.h>
 
+# define NAME "Whole New World"
 # define MAX_WIDTH 30
 # define MAX_HEIGHT 16
 
@@ -33,7 +35,9 @@
 
 typedef enum e_error
 {
+	INSTANCE_NOT_TOUCHED = -1,
 	SUCCESS,
+	FAILURE,
 	MALLOC,
 	OPEN,
 	READ,
@@ -45,6 +49,8 @@ typedef enum e_error
 	WRONG_CHARS,
 	NOT_PLAYABLE,
 	NOT_NEAR,
+	MLX_FAILURE,
+	MLX_DRAW_FAILURE
 }					t_error;
 
 typedef enum e_axes
@@ -142,6 +148,7 @@ typedef struct s_graphics
 
 // init graphics
 int					ft_init_graphics(t_graphics *graphics, char *path);
+int					ft_check_extension(char *path);
 void				error(void);
 
 // helpers
@@ -155,7 +162,7 @@ char				*ft_multi_strjoin(int count, ...);
 
 // map load validate
 t_map				*ft_init_map(char *path);
-int					ft_map_parser(t_map *map, char *path);
+int					ft_map_parser(t_map *map);
 void				ft_free_map(int height, t_map *map);
 // flood-fill funtions
 void				ft_free_matrix(char **arr, int height);
@@ -164,10 +171,11 @@ int					ft_is_playable(t_map *map);
 // draw utilities, load png
 mlx_image_t			*ft_draw_asset(mlx_t *mlx, char *path, t_coord *asset);
 mlx_image_t			*ft_draw_exit(mlx_t *mlx, char *path, t_coord *asset);
+mlx_image_t			*ft_draw_number(t_graphics *graphics, int number);
 mlx_image_t			*ft_load_png(mlx_t *mlx, char *path);
 
 // load graphics
-t_game_anim			*ft_init_game_anim(t_graphics *graphics);
+t_game_anim			*ft_init_player_anim(t_graphics *graphics);
 t_anim				*ft_set_anim_img(t_graphics *graphics, mlx_image_t **asset,
 						char *path, t_coord *coord);
 int					ft_set_map_img(t_graphics *graphics, t_map *map);
@@ -179,7 +187,16 @@ int					ft_spawn_enemies(t_map *map);
 // enemy spawn
 mlx_image_t			**ft_set_enemy_img(t_graphics *graphics, char *path,
 						mlx_image_t **asset);
-t_anim				*ft_set_enemy_anim(mlx_image_t **asset);
+t_anim				*ft_init_enemy_anim(mlx_image_t **asset);
+
+// enemy display
+
+int					ft_alloc_enemy_anim_arr(t_game_anim *anim, int count);
+int					ft_set_enemy(t_graphics *graphics, t_game_anim *anim);
+int					ft_set_all_enemy_img(t_graphics *graphics);
+void				ft_init_anim_img(t_anim *anim);
+int					ft_init_all_enemy_anim(t_graphics *graphics,
+						t_game_anim *anim, int i);
 
 // main hook - movement restrictions
 void				ft_hook(void *param);
@@ -192,9 +209,9 @@ void				ft_animate(void *param, t_anim_spec c);
 t_anim				*ft_spec_anim(t_game_anim *anim, t_anim_spec spec,
 						int instance);
 void				ft_move_player(t_graphics *graphics, t_axes dia, int pix);
-int					ft_is_space(t_graphics *graphics, int xm, int ym);
 int					ft_collect(void *param);
 int					ft_can_exit(void *param);
+int					ft_enable_anim(t_game_anim *anim, t_anim_spec spec);
 
 // enemy actions
 void				ft_animate_enemy(t_graphics *graphics, t_anim_spec spec,
@@ -208,7 +225,20 @@ void				ft_disable_enemy_instance(t_game_anim *anim,
 						t_anim_spec spec, int i);
 void				ft_disable_all_enemy_anim(t_graphics *graphics,
 						t_game_anim *anim);
-int					ft_is_player_near(t_graphics *graphics);
+int					ft_is_enemy_near(t_graphics *graphics);
+void				ft_explode(t_graphics *graphics, int i);
+
+int					ft_get_max_enemy_count(t_map *map);
+int					ft_get_random_spawn_index(t_map *map);
+int					ft_is_enemy_spawnable(t_map *map, t_coord *coord);
+int					ft_not_around_player(t_map *map, t_coord *coord);
+
+// MOVES
+void				ft_idle(t_graphics *graphics);
+void				ft_move_left(t_graphics *graphics);
+void				ft_move_right(t_graphics *graphics);
+void				ft_move_up(t_graphics *graphics);
+void				ft_move_down(t_graphics *graphics);
 
 // display move count
 void				ft_draw_numbers(t_graphics *graphics);

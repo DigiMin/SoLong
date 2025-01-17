@@ -1,5 +1,5 @@
 CC		:= cc
-NAME	:= Game
+NAME	:= so_long
 CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBMLX	:= ../MLX42/
 
