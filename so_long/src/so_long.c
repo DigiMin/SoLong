@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:21:59 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/17 12:21:34 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/18 10:39:17 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int32_t	main(int argc, char **argv)
 	if (ft_init_graphics(&graphics, argv[1]) != SUCCESS)
 	{
 		mlx_terminate(graphics.mlx);
-		return(EXIT_SUCCESS);
+		return (EXIT_SUCCESS);
 	}
 	ft_printf("GRAPHICS INITIALIZED\n");
 	mlx_loop_hook(graphics.mlx, ft_hook, &graphics);
@@ -41,13 +41,11 @@ int32_t	main(int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-	// TODO: FREEEEEEEEEEEEEEEEEE
-	// TODO: erase object files after making
-	// TODO: check where enemy animation is
-	// TODO: refactor the code
-	// TODO: better error handling
-	// TODO: check this function mlx_close_window(mlx_t* mlx)
-	// mlx_delete_image(mlx, img);
-	// TODO: MAXIMUM MOVEMENT ENDING GAME
-	// TODO: figure out the segfaultfor the toobig map
-	// return (0);
+// TODO: FREEEEEEEEEEEEEEEEEE
+// TODO: better error handling
+// TODO: check this function mlx_close_window(mlx_t* mlx)
+// mlx_delete_image(mlx, img);
+// TODO: MAXIMUM MOVEMENT ENDING GAME
+// TODO: figure out the segfaultfor the toobig map
+// TODO: MAKEFILE erase object files after making and download and install mlx in the makefile
+// return (0);

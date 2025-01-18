@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:14:41 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/16 09:57:17 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/18 10:12:33 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,3 @@ static void	ft_flood_fill(int x, int y, t_map *map)
 	ft_flood_fill(x, y - 1, map);
 }
 
-// free the visited matrix if something fails
-void	ft_free_matrix(char **arr, int height)
-{
-	int	i;
-
-	i = 0;
-	while (i < height)
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}

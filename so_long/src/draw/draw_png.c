@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 21:19:25 by mina              #+#    #+#             */
-/*   Updated: 2025/01/17 11:35:45 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/18 08:43:29 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,15 @@ mlx_image_t	*ft_draw_exit(mlx_t *mlx, char *path, t_coord *asset)
 	return (image);
 }
 
-mlx_image_t	*ft_draw_number(t_graphics *graphics, int number)
+mlx_image_t	*ft_draw_number(t_graphics *graphics, char *path)
 {
-	char		*c;
+	mlx_image_t	*img;
 	int			i;
 	int			x;
-	mlx_image_t	*img;
 
-	c = ft_itoa(number);
-	img = ft_load_png(graphics->mlx, ft_multi_strjoin(3, "./graphics/UI/", c,
-				".png"));
+	img = ft_load_png(graphics->mlx, path);
 	if (!img)
 		return (NULL);
-	free(c);
 	x = (graphics->map->width - 3) * 64;
 	i = 0;
 	while (i < 6)

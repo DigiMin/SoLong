@@ -6,14 +6,13 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:02:48 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/17 10:15:35 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/18 08:44:05 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
-
-int	ft_allocate_aimg(t_graphics *graphics)
+int	ft_alloc_player_imgs(t_graphics *graphics)
 {
 	graphics->player_r = malloc(sizeof(mlx_image_t *) * ANIM_COUNT);
 	if (!graphics->player_r)

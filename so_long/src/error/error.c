@@ -6,13 +6,11 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 22:51:47 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/16 23:48:02 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/18 10:32:47 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
-
-char	*ft_error_map(t_error err);
 
 char	*ft_error_str(t_error err)
 {

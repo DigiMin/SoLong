@@ -5,14 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/07 18:18:38 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/17 11:52:54 by honnguye         ###   ########.fr       */
+/*   Created: 2025/01/18 09:37:11 by honnguye          #+#    #+#             */
+/*   Updated: 2025/01/18 10:37:24 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_H
 # define GAME_H
 # include "ft_printf.h"
+# include "game_enums.h"
+# include "game_structs.h"
 # include "get_next_line.h"
 # include <MLX42/MLX42.h>
 # include <stdbool.h>
@@ -33,216 +35,137 @@
 # define ANIM_COUNT 6
 # define ANIM_SPEED 9
 
-typedef enum e_error
-{
-	INSTANCE_NOT_TOUCHED = -1,
-	SUCCESS,
-	FAILURE,
-	MALLOC,
-	OPEN,
-	READ,
-	INIT_FAILED,
-	WRONG_EXTENSION,
-	WRONG_MAP_SIZE,
-	NOT_RECTANGULAR,
-	NOT_FRAMED,
-	WRONG_CHARS,
-	NOT_PLAYABLE,
-	NOT_NEAR,
-	MLX_FAILURE,
-	MLX_DRAW_FAILURE
-}					t_error;
+// ----------------GAME LOOP---------------
 
-typedef enum e_axes
-{
-	X,
-	Y
-}					t_axes;
+void		ft_hook(void *param);
 
-typedef enum e_anim_spec
-{
-	PLAYER_R,
-	PLAYER_L,
-	PLAYER_MR,
-	PLAYER_ML,
-	PLAYER_DEAD,
-	ENEMY_CNTDWN,
-	ENEMY_EXPLSN,
-	ENEMY_NOT_SPAWNABLE
-}					t_anim_spec;
+// -------------INIT/SET DATA--------------
 
-typedef struct s_coord
-{
-	int				x;
-	int				y;
-	struct s_coord	*next;
-}					t_coord;
+// map
+t_map		*ft_init_map(char *path);
+void		ft_init_map_vals(t_map *map);
+int			ft_appnd_coord(int x, int y, t_map *map);
+int			ft_appnd_spaces(int x, int y, t_map *map);
+void		ft_count_assets(int x, int y, t_map *map);
 
-typedef struct s_map
-{
-	int				height;
-	int				width;
-	char			**terrain;
-	char			**visited;
-	int				start_c;
-	t_coord			*start;
-	int				exit_c;
-	t_coord			*exit;
-	int				space_c;
-	t_coord			*spaces;
-	int				collectible_c;
-	t_coord			*collectibles;
-	int				wall_c;
-	t_coord			*walls;
-	int				enemy_c;
-	t_coord			*enemy;
-	int				collected;
-	int				move_c;
-}					t_map;
+// sprites
+int			ft_alloc_player_imgs(t_graphics *graphics);
+int			ft_alloc_enemy_anim_arr(t_game_anim *anim, int count);
+void		ft_init_anim_img(t_anim *anim);
+t_anim		*ft_init_enemy_anim(mlx_image_t **asset);
+int			ft_init_all_enemy_anim(t_graphics *graphics, t_game_anim *anim,
+				int i);
 
-typedef struct s_anim
-{
-	int				anim_count;
-	int				anim_frame;
-	int				anim_speed;
-	int				sleep;
-	int				enabled;
-	mlx_image_t		**anim_images;
-}					t_anim;
+// counter
+t_anim		**ft_set_counter(t_graphics *graphics);
 
-typedef struct s_game_anim
-{
-	t_anim			*player_r;
-	t_anim			*player_l;
-	t_anim			*player_mr;
-	t_anim			*player_ml;
-	t_anim			*player_dead;
-	t_anim			**enemy_cntdwn;
-	t_anim			**enemy_explsn;
-	t_anim			**numbers;
-	int32_t			z_exit;
-	int				*enemy_loops;
-}					t_game_anim;
+// graphics
+int			ft_init_graphics(t_graphics *graphics, char *path);
 
-typedef struct s_graphics
-{
-	mlx_image_t		**player_l;
-	mlx_image_t		**player_r;
-	mlx_image_t		**player_ml;
-	mlx_image_t		**player_mr;
-	mlx_image_t		**player_dead;
-	mlx_image_t		*enemy;
-	mlx_image_t		**enemy_cntdwn;
-	mlx_image_t		**enemy_explsn;
-	mlx_image_t		*exit;
-	mlx_image_t		*space;
-	mlx_image_t		*collectable;
-	mlx_image_t		*wall;
-	mlx_image_t		**numbers;
-	mlx_t			*mlx;
-	t_map			*map;
-	t_game_anim		*anim;
-	t_anim_spec		last_anim_dir;
-	int				can_move;
-}					t_graphics;
+// ----------------MLX DRAW----------------
 
-// init graphics
-int					ft_init_graphics(t_graphics *graphics, char *path);
-int					ft_check_extension(char *path);
-void				error(void);
+// draw image paths
+int			ft_set_map_img(t_graphics *graphics, t_map *map);
+void		ft_draw_numbers(t_graphics *graphics);
+int			ft_set_all_enemy_img(t_graphics *graphics);
+int			ft_set_enemy(t_graphics *graphics, t_game_anim *anim);
+t_game_anim	*ft_set_player_anim(t_graphics *graphics);
 
-// helpers
-t_coord				*ft_coord_new(int x, int y);
-t_coord				*ft_coord_last(t_coord *lst);
-void				ft_coords_clear(t_coord **lst);
-void				ft_coord_add_back(t_coord **lst, t_coord *new);
-t_coord				*ft_get_nth_coord(t_coord *lst, int n);
-char				*ft_itoa(int n);
-char				*ft_multi_strjoin(int count, ...);
+// mlx image to window
+mlx_image_t	**ft_draw_enemies(t_graphics *graphics, char *path,
+				mlx_image_t **asset);
+mlx_image_t	*ft_draw_asset(mlx_t *mlx, char *path, t_coord *asset);
+mlx_image_t	*ft_draw_asset(mlx_t *mlx, char *path, t_coord *asset);
+mlx_image_t	*ft_draw_exit(mlx_t *mlx, char *path, t_coord *asset);
+mlx_image_t	*ft_draw_number(t_graphics *graphics, char *path);
+t_anim		*ft_draw_player(t_graphics *graphics, mlx_image_t **asset,
+				char *path, t_coord *coord);
 
-// map load validate
-t_map				*ft_init_map(char *path);
-int					ft_map_parser(t_map *map);
-void				ft_free_map(int height, t_map *map);
-// flood-fill funtions
-void				ft_free_matrix(char **arr, int height);
-int					ft_is_playable(t_map *map);
+// mlx texture to mlx image
+mlx_image_t	*ft_load_png(mlx_t *mlx, char *path);
 
-// draw utilities, load png
-mlx_image_t			*ft_draw_asset(mlx_t *mlx, char *path, t_coord *asset);
-mlx_image_t			*ft_draw_exit(mlx_t *mlx, char *path, t_coord *asset);
-mlx_image_t			*ft_draw_number(t_graphics *graphics, int number);
-mlx_image_t			*ft_load_png(mlx_t *mlx, char *path);
+// --------------MAP PARSING---------------
 
-// load graphics
-t_game_anim			*ft_init_player_anim(t_graphics *graphics);
-t_anim				*ft_set_anim_img(t_graphics *graphics, mlx_image_t **asset,
-						char *path, t_coord *coord);
-int					ft_set_map_img(t_graphics *graphics, t_map *map);
-int					ft_allocate_aimg(t_graphics *graphics);
-void				ft_switch_display(t_anim *asset);
-int					ft_add_enemy(t_map *map);
-int					ft_spawn_enemies(t_map *map);
+// map validation
+int			ft_check_extension(char *path);
+int			ft_map_parser(t_map *map);
 
-// enemy spawn
-mlx_image_t			**ft_set_enemy_img(t_graphics *graphics, char *path,
-						mlx_image_t **asset);
-t_anim				*ft_init_enemy_anim(mlx_image_t **asset);
+// flood-fill function
+int			ft_is_playable(t_map *map);
 
-// enemy display
+// ---------------ANIMATION----------------
 
-int					ft_alloc_enemy_anim_arr(t_game_anim *anim, int count);
-int					ft_set_enemy(t_graphics *graphics, t_game_anim *anim);
-int					ft_set_all_enemy_img(t_graphics *graphics);
-void				ft_init_anim_img(t_anim *anim);
-int					ft_init_all_enemy_anim(t_graphics *graphics,
-						t_game_anim *anim, int i);
+// universal animation helpers
+t_anim		*ft_spec_anim(t_game_anim *anim, t_anim_spec spec, int instance);
+void		ft_animate(void *param, t_anim_spec spec);
+void		ft_switch_display(t_anim *asset);
 
-// main hook - movement restrictions
-void				ft_hook(void *param);
+// player animation - more in player actions
+int			ft_enable_anim(t_game_anim *anim, t_anim_spec spec);
 
-// Player appearing to walk behind the tower
-int					ft_switch_exit_z(void *param);
+// enemy animation - more in enemy actions
+void		ft_animate_enemy(t_graphics *graphics, t_anim_spec spec, int i);
+int			ft_enable_enemy_anim(t_graphics *graphics, t_anim_spec spec, int i);
+void		ft_disable_all_enemy_anim(t_graphics *graphics, t_game_anim *anim);
+void		ft_disable_enemy_instance(t_game_anim *anim, t_anim_spec spec,
+				int i);
+void		ft_switch_enemy_display(t_graphics *graphics, t_anim *asset,
+				int ins);
 
-// player animations
-void				ft_animate(void *param, t_anim_spec c);
-t_anim				*ft_spec_anim(t_game_anim *anim, t_anim_spec spec,
-						int instance);
-void				ft_move_player(t_graphics *graphics, t_axes dia, int pix);
-int					ft_collect(void *param);
-int					ft_can_exit(void *param);
-int					ft_enable_anim(t_game_anim *anim, t_anim_spec spec);
+// -------------PLAYER ACTIONS-------------
+
+// player movement
+void		ft_move_player(t_graphics *graphics, t_axes dia, int pix);
+void		ft_idle(t_graphics *graphics);
+void		ft_move_left(t_graphics *graphics);
+void		ft_move_right(t_graphics *graphics);
+void		ft_move_up(t_graphics *graphics);
+void		ft_move_down(t_graphics *graphics);
+
+// movement counter update
+void		ft_switch_counter(t_anim **counter, int moves);
+
+// walk behind/in front of tower
+int			ft_switch_exit_z(void *param);
+
+// actions
+int			ft_collect(void *param);
+int			ft_can_exit(void *param);
+
+// -------------ENEMY ACTIONS--------------
+
+// enemy random spawn
+int			ft_add_enemy(t_map *map);
+int			ft_spawn_enemies(t_map *map);
+int			ft_get_max_enemy_count(t_map *map);
+int			ft_get_random_spawn_index(t_map *map);
+int			ft_is_enemy_spawnable(t_map *map, t_coord *coord);
+int			ft_not_around_player(t_map *map, t_coord *coord);
 
 // enemy actions
-void				ft_animate_enemy(t_graphics *graphics, t_anim_spec spec,
-						int i);
-int					ft_enemy_touched(void *param);
-void				ft_switch_enemy_display(t_graphics *graphics, t_anim *asset,
-						int i);
-int					ft_enable_enemy_anim(t_graphics *graphics, t_anim_spec spec,
-						int i);
-void				ft_disable_enemy_instance(t_game_anim *anim,
-						t_anim_spec spec, int i);
-void				ft_disable_all_enemy_anim(t_graphics *graphics,
-						t_game_anim *anim);
-int					ft_is_enemy_near(t_graphics *graphics);
-void				ft_explode(t_graphics *graphics, int i);
+void		ft_enemy_handler(t_graphics *graphics);
+int			ft_enemy_touched(void *param);
+void		ft_explode(t_graphics *graphics, int i);
+int			ft_is_exploding(t_graphics *graphics);
 
-int					ft_get_max_enemy_count(t_map *map);
-int					ft_get_random_spawn_index(t_map *map);
-int					ft_is_enemy_spawnable(t_map *map, t_coord *coord);
-int					ft_not_around_player(t_map *map, t_coord *coord);
+// -----------MEMORY MANAGEMENT------------
+void		ft_free_map(int height, t_map *map);
+void		ft_free_matrix(char **arr, int height);
 
-// MOVES
-void				ft_idle(t_graphics *graphics);
-void				ft_move_left(t_graphics *graphics);
-void				ft_move_right(t_graphics *graphics);
-void				ft_move_up(t_graphics *graphics);
-void				ft_move_down(t_graphics *graphics);
+// -------------ERROR HANDLING-------------
+char		*ft_error_map(t_error err);
+char		*ft_error_str(t_error err);
 
-// display move count
-void				ft_draw_numbers(t_graphics *graphics);
-t_anim				**ft_set_counter(t_graphics *graphics);
-void				ft_switch_counter(t_anim **counter, int moves);
+// -----------HELPERS/UTILITIES------------
+
+// coord helpers
+void		ft_coord_add_back(t_coord **lst, t_coord *new);
+void		ft_coords_clear(t_coord **lst);
+t_coord		*ft_coord_last(t_coord *lst);
+t_coord		*ft_coord_new(int x, int y);
+t_coord		*ft_get_nth_coord(t_coord *lst, int n);
+
+// multi string join
+char		*ft_multi_strjoin(int count, ...);
 
 #endif

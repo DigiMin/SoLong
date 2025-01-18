@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:58:16 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/17 10:35:06 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/18 08:47:29 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ t_anim	*ft_spec_anim(t_game_anim *anim, t_anim_spec spec, int instance)
 		return (anim->enemy_explsn[instance]);
 	return (NULL);
 }
-
 
 /*
  * @brief Switches the display of each animation

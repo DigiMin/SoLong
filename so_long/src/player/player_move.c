@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:08:51 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/17 11:55:00 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/18 09:33:54 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static int	ft_set_pimage_coord(t_graphics *graphics, int x, int y)
 
 static int	ft_is_space(t_graphics *graphics, int xm, int ym)
 {
-	int x[2];
-	int y[2];
+	int	x[2];
+	int	y[2];
 
 	x[0] = (xm + OFFSET) / IMG_SIZE;
 	y[0] = (ym + OSET) / IMG_SIZE;

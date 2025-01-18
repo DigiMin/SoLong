@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display_counter.c                                  :+:      :+:    :+:   */
+/*   movement_counter_switch.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:59:43 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/17 11:45:34 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/18 09:34:21 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
-
 
 void	ft_switch_counter(t_anim **counter, int moves)
 {

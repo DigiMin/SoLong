@@ -6,12 +6,11 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:36:37 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/17 10:37:18 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/18 09:29:48 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
-
 
 int	ft_get_max_enemy_count(t_map *map)
 {
