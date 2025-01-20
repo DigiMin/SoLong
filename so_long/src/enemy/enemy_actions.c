@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 22:28:40 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/18 10:29:41 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/19 22:50:53 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_is_exploding(t_graphics *graphics)
 			+ OSET < enemy[i].x + (IMG_SIZE * 1.3) && player->y
 			- HALF_SIZE > enemy[i].y - (IMG_SIZE * 1.3) && player->y
 			+ OSET < enemy[i].y + (IMG_SIZE * 1.3)
-			&& graphics->anim->enemy_loops[i] == 4)
+			&& graphics->anim->enemy_loops[i] == EXPLOSION_LOOP)
 			return (NOT_NEAR);
 		i++;
 	}
@@ -74,7 +74,7 @@ void	ft_enemy_handler(t_graphics *graphics)
 	i = 0;
 	while (i < graphics->map->enemy_c)
 	{
-		if (ft_is_exploding(graphics) && graphics->anim->enemy_loops[i] == 4)
+		if (ft_is_exploding(graphics) && graphics->anim->enemy_loops[i] == EXPLOSION_LOOP)
 			graphics->can_move = 0;
 		ft_explode(graphics, i);
 		i++;
@@ -84,14 +84,14 @@ void	ft_enemy_handler(t_graphics *graphics)
 void	ft_explode(t_graphics *graphics, int i)
 {
 	if (graphics->anim->enemy_loops[i] > 0
-		&& graphics->anim->enemy_loops[i] < 4)
+		&& graphics->anim->enemy_loops[i] < EXPLOSION_LOOP)
 		ft_animate_enemy(graphics, ENEMY_CNTDWN, i);
-	if (graphics->anim->enemy_loops[i] == 4)
+	if (graphics->anim->enemy_loops[i] == EXPLOSION_LOOP)
 	{
 		ft_disable_enemy_instance(graphics->anim, ENEMY_CNTDWN, i);
 		ft_animate_enemy(graphics, ENEMY_EXPLSN, i);
 	}
-	if (graphics->anim->enemy_loops[i] == 5)
+	if (graphics->anim->enemy_loops[i] == EXPLOSION_LOOP + 1)
 	{
 		ft_disable_enemy_instance(graphics->anim, ENEMY_EXPLSN, i);
 		graphics->anim->enemy_loops[i] = 10;

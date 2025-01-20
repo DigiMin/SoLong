@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 11:22:47 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/18 10:03:15 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 10:57:26 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ void	ft_hook(void *param)
 
 	graphics = param;
 	if (mlx_is_key_down(graphics->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(graphics->mlx);
+	{
+		ft_free_graphics(&graphics);
+		exit(EXIT_SUCCESS);
+	}
 	ft_enemy_handler(graphics);
 	if (!graphics->can_move)
 	{
@@ -33,7 +36,7 @@ void	ft_hook(void *param)
 	ft_collect(param);
 	if (ft_can_exit(param) == SUCCESS)
 	{
-		mlx_terminate(graphics->mlx);
+		ft_free_graphics(&graphics);
 		exit(EXIT_SUCCESS);
 	}
 }

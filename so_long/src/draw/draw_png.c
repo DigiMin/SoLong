@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 21:19:25 by mina              #+#    #+#             */
-/*   Updated: 2025/01/18 08:43:29 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 10:49:27 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,20 @@ mlx_image_t	*ft_draw_exit(mlx_t *mlx, char *path, t_coord *asset)
 	return (image);
 }
 
-mlx_image_t	*ft_draw_number(t_graphics *graphics, char *path)
+mlx_image_t	*ft_draw_number(t_graphics **graphics, char *path)
 {
 	mlx_image_t	*img;
 	int			i;
 	int			x;
 
-	img = ft_load_png(graphics->mlx, path);
+	img = ft_load_png((*graphics)->mlx, path);
 	if (!img)
 		return (NULL);
-	x = (graphics->map->width - 3) * 64;
+	x = ((*graphics)->map->width - 3) * 64;
 	i = 0;
 	while (i < 6)
 	{
-		mlx_image_to_window(graphics->mlx, img, x, 0);
+		mlx_image_to_window((*graphics)->mlx, img, x, 0);
 		x += HALF_SIZE;
 		i++;
 	}

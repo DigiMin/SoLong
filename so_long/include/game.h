@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 09:37:11 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/18 10:37:24 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:24:36 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define PLAYER_SPEED 4
 # define ANIM_COUNT 6
 # define ANIM_SPEED 9
+# define EXPLOSION_LOOP 3
 
 // ----------------GAME LOOP---------------
 
@@ -42,34 +43,34 @@ void		ft_hook(void *param);
 // -------------INIT/SET DATA--------------
 
 // map
-t_map		*ft_init_map(char *path);
-void		ft_init_map_vals(t_map *map);
-int			ft_appnd_coord(int x, int y, t_map *map);
-int			ft_appnd_spaces(int x, int y, t_map *map);
-void		ft_count_assets(int x, int y, t_map *map);
+int			ft_init_map(t_map **map, char *path);
+void		ft_init_map_vals(t_map **map);
+int			ft_appnd_coord(int x, int y, t_map **map);
+int			ft_appnd_spaces(int x, int y, t_map **map);
+void		ft_count_assets(int x, int y, t_map **map);
 
 // sprites
-int			ft_alloc_player_imgs(t_graphics *graphics);
+int			ft_alloc_player_imgs(t_graphics **graphics);
 int			ft_alloc_enemy_anim_arr(t_game_anim *anim, int count);
 void		ft_init_anim_img(t_anim *anim);
 t_anim		*ft_init_enemy_anim(mlx_image_t **asset);
-int			ft_init_all_enemy_anim(t_graphics *graphics, t_game_anim *anim,
+int			ft_init_all_enemy_anim(t_graphics **graphics, t_game_anim *anim,
 				int i);
 
 // counter
-t_anim		**ft_set_counter(t_graphics *graphics);
+t_anim		**ft_set_counter(t_graphics **graphics);
 
 // graphics
-int			ft_init_graphics(t_graphics *graphics, char *path);
+int			ft_init_graphics(t_graphics **graphics, char *path);
 
 // ----------------MLX DRAW----------------
 
 // draw image paths
-int			ft_set_map_img(t_graphics *graphics, t_map *map);
-void		ft_draw_numbers(t_graphics *graphics);
-int			ft_set_all_enemy_img(t_graphics *graphics);
-int			ft_set_enemy(t_graphics *graphics, t_game_anim *anim);
-t_game_anim	*ft_set_player_anim(t_graphics *graphics);
+int			ft_set_map_img(t_graphics **graphics, t_map *map);
+void		ft_draw_numbers(t_graphics **graphics);
+int			ft_set_all_enemy_img(t_graphics **graphics);
+int			ft_set_enemy(t_graphics **graphics, t_game_anim *anim);
+t_game_anim	*ft_set_player_anim(t_graphics **graphics);
 
 // mlx image to window
 mlx_image_t	**ft_draw_enemies(t_graphics *graphics, char *path,
@@ -77,8 +78,8 @@ mlx_image_t	**ft_draw_enemies(t_graphics *graphics, char *path,
 mlx_image_t	*ft_draw_asset(mlx_t *mlx, char *path, t_coord *asset);
 mlx_image_t	*ft_draw_asset(mlx_t *mlx, char *path, t_coord *asset);
 mlx_image_t	*ft_draw_exit(mlx_t *mlx, char *path, t_coord *asset);
-mlx_image_t	*ft_draw_number(t_graphics *graphics, char *path);
-t_anim		*ft_draw_player(t_graphics *graphics, mlx_image_t **asset,
+mlx_image_t	*ft_draw_number(t_graphics **graphics, char *path);
+t_anim		*ft_draw_player(t_graphics **graphics, mlx_image_t **asset,
 				char *path, t_coord *coord);
 
 // mlx texture to mlx image
@@ -149,8 +150,13 @@ void		ft_explode(t_graphics *graphics, int i);
 int			ft_is_exploding(t_graphics *graphics);
 
 // -----------MEMORY MANAGEMENT------------
-void		ft_free_map(int height, t_map *map);
+void		ft_free_graphics(t_graphics **graphics);
+void		ft_free_game_anim(t_graphics **graphics, t_game_anim *anim);
+void		ft_free_map(int height, t_map **map);
 void		ft_free_matrix(char **arr, int height);
+void		ft_free_coords(t_coord **lst);
+// void		ft_free_image_array(mlx_t *mlx, mlx_image_t **arr);
+void		ft_free_anim_array(t_anim **arr, int count);
 
 // -------------ERROR HANDLING-------------
 char		*ft_error_map(t_error err);
@@ -159,8 +165,7 @@ char		*ft_error_str(t_error err);
 // -----------HELPERS/UTILITIES------------
 
 // coord helpers
-void		ft_coord_add_back(t_coord **lst, t_coord *new);
-void		ft_coords_clear(t_coord **lst);
+void		ft_coord_add_back(t_coord **lst, int x, int y);
 t_coord		*ft_coord_last(t_coord *lst);
 t_coord		*ft_coord_new(int x, int y);
 t_coord		*ft_get_nth_coord(t_coord *lst, int n);

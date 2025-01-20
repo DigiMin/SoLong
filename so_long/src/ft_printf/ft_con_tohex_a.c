@@ -6,13 +6,14 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 08:57:35 by honnguye          #+#    #+#             */
-/*   Updated: 2024/10/25 11:54:22 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/18 23:53:46 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 static char	ft_loworcap(char x);
+static int	ft_hex_len(unsigned long n);
 
 // This function takes an unsigned long integer
 // Returns an array of chars in hexadecimal wo prefix
@@ -22,12 +23,14 @@ char	*ft_ultohex_a(unsigned long num, char x)
 {
 	char	*buff;
 	int		i;
-	short	bt;
+	int		len;
+	int		bt;
 
-	buff = (char *)malloc(16 * sizeof(char));
+	len = ft_hex_len(num);
+	buff = (char *)malloc(sizeof(char) * (len + 1));
 	if (!buff)
 		return (NULL);
-	i = 16;
+	i = len + 1;
 	buff[i] = '\0';
 	while (i > 0)
 	{
@@ -40,6 +43,19 @@ char	*ft_ultohex_a(unsigned long num, char x)
 		num >>= 4;
 	}
 	return (buff);
+}
+
+static int	ft_hex_len(unsigned long n)
+{
+    int	len;
+
+    len = 1;
+    while (n >= 16)
+    {
+        n = n / 16;
+        len++;
+    }
+    return (len);
 }
 
 // This function takes a pointer as an argument

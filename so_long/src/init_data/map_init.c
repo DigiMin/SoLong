@@ -6,59 +6,66 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:26:43 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/18 09:31:08 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 10:06:41 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
-static int		ft_set_assets(t_map *map);
-static t_map	*ft_read_ber(char *path);
-static int		ft_set_height(char *path, t_map *map);
+static int	ft_set_assets(t_map **map);
+static int	ft_read_ber(t_map **map, char *path);
+static int	ft_set_height(char *path, t_map **map);
 
 // ---------------------- COORD SETTERS ------------------------------- //
 
 // Read the map and init the variables
-t_map	*ft_init_map(char *path)
+int ft_init_map(t_map **map, char *path)
 {
-	t_map	*map;
+	int		ret;
 
-	map = ft_read_ber(path);
 	if (!map)
-		return (NULL);
+		return (INIT_FAILED);
+	ret = SUCCESS;
 	ft_init_map_vals(map);
-	if (ft_set_assets(map) != SUCCESS)
-		return (NULL);
-	return (map);
+	ret = ft_read_ber(map, path);
+	if (ret != SUCCESS)
+		return (ret);
+	(*map)->width = ft_gnl_strlen((*map)->terrain[0], '\n') - 1;
+	printf("IN INIT MAP, map->spaces: %p\n", (*map)->spaces);
+	ret = ft_set_assets(map);
+	if (ret != SUCCESS)
+		return (ret);
+	printf("IN INIT MAP, map: %p\n", map);
+	printf("IN INIT MAP, *map: %p\n", *map);
+	printf("IN INIT MAP, map->spaces: %p\n", (*map)->spaces);
+	printf("IN INIT MAP, map->spaces -> LAST POINTER: %p\n", ft_coord_last((*map)->spaces));
+	printf("RETURNING ALLOCD MAP\n");
+	return (ret);
 }
 
-static t_map	*ft_read_ber(char *path)
+static int	ft_read_ber(t_map **map, char *path)
 {
 	int		i;
 	int		fd;
-	t_map	*map;
 
 	i = 0;
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return (NULL);
-	map = malloc(sizeof(t_map));
-	if (!map)
-		return (NULL);
+		return (OPEN);
 	if (ft_set_height(path, map) != SUCCESS)
-		return (NULL);
-	map->terrain = malloc(sizeof(char *) * map->height);
-	map->terrain[i] = get_next_line(fd);
-	while (map->terrain[i])
+		return (OPEN);
+	(*map)->terrain = malloc(sizeof(char *) * (*map)->height);
+	(*map)->terrain[i] = get_next_line(fd);
+	while (i < (*map)->height - 1)
 	{
 		i++;
-		map->terrain[i] = get_next_line(fd);
+		(*map)->terrain[i] = get_next_line(fd);
 	}
 	close(fd);
-	return (map);
+	return (SUCCESS);
 }
 
-static int	ft_set_height(char *path, t_map *map)
+static int	ft_set_height(char *path, t_map **map)
 {
 	int		i;
 	int		fd;
@@ -75,33 +82,35 @@ static int	ft_set_height(char *path, t_map *map)
 		free(row);
 		row = get_next_line(fd);
 	}
-	free(row);
+	if (row)
+		free(row);
 	close(fd);
-	map->height = i;
+	(*map)->height = i;
+	printf("map->height: %d\n", (*map)->height);
 	return (SUCCESS);
 }
 
-static int	ft_set_assets(t_map *map)
+static int	ft_set_assets(t_map **map)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (y < map->height)
+	while (y < (*map)->height)
 	{
 		x = 0;
-		while (x < map->width)
+		while (x < (*map)->width)
 		{
 			if (ft_appnd_coord(x, y, map) != SUCCESS)
-				return (MALLOC);
-			if (ft_appnd_spaces(x, y, map) != SUCCESS)
-				return (MALLOC);
+				return (ft_free_map((*map)->height, map), MALLOC);
 			ft_count_assets(x, y, map);
 			x++;
 		}
 		y++;
 	}
-	if (ft_spawn_enemies(map))
+	printf("IN SET ASSETS, map->spaces: %p\n", (*map)->spaces);
+	printf("IN SET ASSETS, map->spaces -> LAST POINTER: %p\n", ft_coord_last((*map)->spaces));
+	if (ft_spawn_enemies(*map))
 		return (FAILURE);
 	return (SUCCESS);
 }

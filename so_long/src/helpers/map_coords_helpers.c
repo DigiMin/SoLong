@@ -6,16 +6,19 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:31:54 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/18 09:35:09 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:23:52 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
-void	ft_coord_add_back(t_coord **lst, t_coord *new)
+void	ft_coord_add_back(t_coord **lst, int x, int y)
 {
 	t_coord	*last;
+	t_coord	*head;
+	t_coord	*new;
 
+	new = ft_coord_new(x, y);
 	if (!new)
 		return ;
 	if (!*lst)
@@ -23,34 +26,21 @@ void	ft_coord_add_back(t_coord **lst, t_coord *new)
 		*lst = new;
 		return ;
 	}
-	last = ft_coord_last(*lst);
+	head = *lst;
+	last = ft_coord_last(head);
 	last->next = new;
-}
-
-void	ft_coords_clear(t_coord **lst)
-{
-	t_coord	*next;
-
-	if (!*lst)
-		return ;
-	while (*lst)
-	{
-		next = (*lst)->next;
-		(*lst)->x = 0;
-		(*lst)->y = 0;
-		free(*lst);
-		*lst = next;
-	}
-	*lst = NULL;
 }
 
 t_coord	*ft_coord_last(t_coord *lst)
 {
+	t_coord	*last;
+
 	if (!lst)
 		return (NULL);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
+	last = lst;
+	while (last->next != NULL)
+		last = last->next;
+	return (last);
 }
 
 t_coord	*ft_coord_new(int x, int y)
@@ -69,12 +59,16 @@ t_coord	*ft_coord_new(int x, int y)
 t_coord	*ft_get_nth_coord(t_coord *lst, int n)
 {
 	int	i;
+	t_coord	*node;
 
 	i = 0;
+	if (!lst)
+		return (NULL);
+	node = lst;
 	while (i < n)
 	{
-		lst = lst->next;
+		node = node->next;
 		i++;
 	}
-	return (lst);
+	return (node);
 }

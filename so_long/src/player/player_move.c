@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:08:51 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/18 09:33:54 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/19 22:51:33 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	ft_set_pimage_coord(t_graphics *graphics, int x, int y);
 static int	ft_is_space(t_graphics *graphics, int xm, int ym);
+static void ft_print_info_to_terminal(t_graphics *graphics);
 
 void	ft_move_player(t_graphics *graphics, t_axes dia, int pix)
 {
@@ -34,7 +35,25 @@ void	ft_move_player(t_graphics *graphics, t_axes dia, int pix)
 	ft_switch_exit_z(graphics);
 	ft_set_pimage_coord(graphics, xm, ym);
 	ft_switch_counter(graphics->anim->numbers, ++graphics->map->move_c);
-	ft_printf("Move count: %d\n", graphics->map->move_c);
+	ft_print_info_to_terminal(graphics);
+}
+
+static void	ft_print_info_to_terminal(t_graphics *graphics)
+{
+	int e_count;
+	int i;
+
+	e_count = 0;
+	i = 0;
+	while (i < graphics->map->enemy_c)
+	{
+		if (graphics->anim->enemy_loops[i] > 0)
+		e_count++;
+		i++;
+	}
+	ft_printf("\033[H\033[JMove count: %d\n", graphics->map->move_c);
+	ft_printf("Collected: %d/%d\n", graphics->map->collected, graphics->map->collectible_c);
+	ft_printf("Enemies encountered: %d/%d\n", e_count, graphics->map->enemy_c);
 }
 
 static int	ft_set_pimage_coord(t_graphics *graphics, int x, int y)

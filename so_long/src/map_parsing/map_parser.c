@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:11:29 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/17 12:19:01 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:44:23 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,24 @@ static int	ft_map_frame_check(t_map *map);
 // width must be the same on each line
 int	ft_map_parser(t_map *map)
 {
-	if (ft_rectangular_check(map) != SUCCESS)
-		return (NOT_RECTANGULAR);
-	if (ft_map_frame_check(map) != SUCCESS)
-		return (NOT_FRAMED);
-	if (ft_min_char_validator(map) != SUCCESS)
-		return (WRONG_CHARS);
-	if (ft_is_playable(map) != SUCCESS)
-		return (NOT_PLAYABLE);
-	return (SUCCESS);
+	int ret;
+
+	ret = SUCCESS;
+	if (!map)
+		return (FAILURE);
+	ret = ft_rectangular_check(map);
+	if (ret != SUCCESS)
+		return (ret);
+	ret = ft_map_frame_check(map);
+	if (ret != SUCCESS)
+		return (ret);
+	ret = ft_min_char_validator(map);
+	if (ret != SUCCESS)
+		return (ret);
+	ret = ft_is_playable(map);
+	if (ret != SUCCESS)
+		return (ret);
+	return (ret);
 }
 
 // --------------------- MAP HELPERS --------------------------
@@ -57,6 +66,8 @@ static int	ft_rectangular_check(t_map *map)
 		|| map->height >= MAX_HEIGHT)
 		return (WRONG_MAP_SIZE);
 	i = 1;
+	printf("map->height: %d\n", map->height);
+	printf("map->width: %d\n", map->width);
 	while (map->height > i)
 	{
 		len = (int)ft_gnl_strlen(map->terrain[i], '\n');

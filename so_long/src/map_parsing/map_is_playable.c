@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:14:41 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/18 10:12:33 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:50:13 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,20 @@ static void	ft_init_visited(t_map *map);
 //	decides if the map is playable
 int	ft_is_playable(t_map *map)
 {
-	if (ft_allocate_visited(map) != SUCCESS)
+	int ret;
+
+	ret = SUCCESS;
+	if (!map)
+		return (FAILURE);
+	ret = ft_allocate_visited(map);
+	if (ret != SUCCESS)
 		return (MALLOC);
 	ft_init_visited(map);
+	map->collected = 0;
 	ft_flood_fill(map->start->x, map->start->y, map);
-	if (map->collected != map->collectible_c
-		|| map->visited[map->exit->y][map->exit->x] != '1')
+	if (map->visited[map->exit->y][map->exit->x] != '1')
+		return (NOT_PLAYABLE);
+	if (map->collected != map->collectible_c)
 		return (NOT_PLAYABLE);
 	return (SUCCESS);
 }
@@ -75,6 +83,8 @@ static void	ft_init_visited(t_map *map)
 // Sets the variable to '1' in the visited matrix
 static void	ft_flood_fill(int x, int y, t_map *map)
 {
+	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
+		return ;
 	if (map->terrain[y][x] == '1' || map->visited[y][x] == '1')
 		return ;
 	if (map->terrain[y][x] == 'C' && map->visited[y][x] == '0')

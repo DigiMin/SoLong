@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 19:17:44 by honnguye          #+#    #+#             */
-/*   Updated: 2024/10/26 12:34:07 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/18 23:51:02 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	ft_wphex(void *p, char x)
 		i++;
 	len = ft_whex_prefix(x) + ft_wstr(&hexul[i]);
 	free(hexul);
+	hexul = NULL;
 	return (len);
 }
 

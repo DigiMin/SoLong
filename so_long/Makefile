@@ -1,11 +1,11 @@
 CC		:= cc
 NAME	:= so_long
-CFLAGS	:= -g -Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -g #-fsanitize=address#-Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBMLX	:= ../MLX42/
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/mlx_build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS	:= $(shell find ./src -iname "*.c") #./src/test_prog.c
+SRCS	:= $(shell find ./src -iname "*.c")
 OBJS	:= ${SRCS:.c=.o}
 
 all: libmlx $(NAME)
@@ -18,6 +18,7 @@ libmlx:
 
 $(NAME): $(OBJS)
 	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@make clean
 
 clean:
 	@rm -rf $(OBJS)
