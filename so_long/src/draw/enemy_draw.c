@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:20:22 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 11:02:37 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:22:45 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	ft_set_enemy(t_graphics **graphics, t_game_anim *anim)
 
 int	ft_set_all_enemy_img(t_graphics **graphics)
 {
-	(*graphics)->enemy_cntdwn = ft_draw_enemies(*graphics, "./graphics/Enemy/Enemy",
-			(*graphics)->enemy_cntdwn);
+	(*graphics)->enemy_cntdwn = ft_draw_enemies(*graphics,
+			"./graphics/Enemy/Enemy", (*graphics)->enemy_cntdwn);
 	if (!(*graphics)->enemy_cntdwn)
 		return (MALLOC);
 	(*graphics)->enemy_explsn = ft_draw_enemies((*graphics),
@@ -59,7 +59,8 @@ mlx_image_t	**ft_draw_enemies(t_graphics *graphics, char *path,
 	{
 		c = ft_itoa(i);
 		full_path = ft_multi_strjoin(3, path, c, ".png");
-		enemy[i] = ft_draw_asset(graphics->mlx, full_path, graphics->map->enemy);
+		enemy[i] = ft_draw_asset(graphics->mlx, full_path,
+				graphics->map->enemy);
 		if (!enemy[i])
 			return (NULL);
 		free(full_path);

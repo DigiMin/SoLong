@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 22:28:40 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/19 22:50:53 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:23:11 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ void	ft_enemy_handler(t_graphics *graphics)
 	i = 0;
 	while (i < graphics->map->enemy_c)
 	{
-		if (ft_is_exploding(graphics) && graphics->anim->enemy_loops[i] == EXPLOSION_LOOP)
+		if (ft_is_exploding(graphics)
+			&& graphics->anim->enemy_loops[i] == EXPLOSION_LOOP)
 			graphics->can_move = 0;
 		ft_explode(graphics, i);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:31:54 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 11:23:52 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:24:37 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_coord	*ft_coord_new(int x, int y)
 
 t_coord	*ft_get_nth_coord(t_coord *lst, int n)
 {
-	int	i;
+	int		i;
 	t_coord	*node;
 
 	i = 0;

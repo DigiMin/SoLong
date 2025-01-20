@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:38:15 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 10:48:31 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:22:54 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	ft_set_map_img(t_graphics **graphics, t_map *map)
 	(*graphics)->collectable = ft_draw_asset((*graphics)->mlx, collectable,
 			map->collectibles);
 	(*graphics)->exit = ft_draw_exit((*graphics)->mlx, tower, map->exit);
-	(*graphics)->enemy = ft_draw_asset((*graphics)->mlx, enemy, (*graphics)->map->enemy);
+	(*graphics)->enemy = ft_draw_asset((*graphics)->mlx, enemy,
+			(*graphics)->map->enemy);
 	if (!(*graphics)->wall || !(*graphics)->space || !(*graphics)->collectable
 		|| !(*graphics)->exit || !(*graphics)->enemy)
 		return (MLX_DRAW_FAILURE);

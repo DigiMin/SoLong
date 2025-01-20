@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:11:29 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 11:44:23 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:23:33 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_map_frame_check(t_map *map);
 // width must be the same on each line
 int	ft_map_parser(t_map *map)
 {
-	int ret;
+	int	ret;
 
 	ret = SUCCESS;
 	if (!map)
@@ -48,10 +48,8 @@ int	ft_check_extension(char *path)
 	size_t	i;
 
 	i = ft_gnl_strlen(path, '\0');
-	if (path[i - 1] != 'r'
-		&& path[i - 2] != 'e'
-		&& path[i - 3] != 'b'
-		&& path[i - 4] != '.')
+	if (path[i - 1] != 'r' && path[i - 2] != 'e' && path[i - 3] != 'b' && path[i
+			- 4] != '.')
 		return (WRONG_EXTENSION);
 	return (SUCCESS);
 }

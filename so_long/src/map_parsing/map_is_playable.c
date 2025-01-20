@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:14:41 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 11:50:13 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:17:19 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ static void	ft_init_visited(t_map *map);
 //	decides if the map is playable
 int	ft_is_playable(t_map *map)
 {
-	int ret;
+	int	ret;
 
 	ret = SUCCESS;
 	if (!map)
 		return (FAILURE);
-	ret = ft_allocate_visited(map);
-	if (ret != SUCCESS)
+	if (ft_allocate_visited(map) != SUCCESS)
 		return (MALLOC);
 	ft_init_visited(map);
 	map->collected = 0;
@@ -95,4 +94,3 @@ static void	ft_flood_fill(int x, int y, t_map *map)
 	ft_flood_fill(x, y + 1, map);
 	ft_flood_fill(x, y - 1, map);
 }
-

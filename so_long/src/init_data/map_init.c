@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:26:43 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 10:06:41 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:24:15 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	ft_set_height(char *path, t_map **map);
 // ---------------------- COORD SETTERS ------------------------------- //
 
 // Read the map and init the variables
-int ft_init_map(t_map **map, char *path)
+int	ft_init_map(t_map **map, char *path)
 {
-	int		ret;
+	int	ret;
 
 	if (!map)
 		return (INIT_FAILED);
@@ -31,22 +31,16 @@ int ft_init_map(t_map **map, char *path)
 	if (ret != SUCCESS)
 		return (ret);
 	(*map)->width = ft_gnl_strlen((*map)->terrain[0], '\n') - 1;
-	printf("IN INIT MAP, map->spaces: %p\n", (*map)->spaces);
 	ret = ft_set_assets(map);
 	if (ret != SUCCESS)
 		return (ret);
-	printf("IN INIT MAP, map: %p\n", map);
-	printf("IN INIT MAP, *map: %p\n", *map);
-	printf("IN INIT MAP, map->spaces: %p\n", (*map)->spaces);
-	printf("IN INIT MAP, map->spaces -> LAST POINTER: %p\n", ft_coord_last((*map)->spaces));
-	printf("RETURNING ALLOCD MAP\n");
 	return (ret);
 }
 
 static int	ft_read_ber(t_map **map, char *path)
 {
-	int		i;
-	int		fd;
+	int	i;
+	int	fd;
 
 	i = 0;
 	fd = open(path, O_RDONLY);
@@ -86,7 +80,6 @@ static int	ft_set_height(char *path, t_map **map)
 		free(row);
 	close(fd);
 	(*map)->height = i;
-	printf("map->height: %d\n", (*map)->height);
 	return (SUCCESS);
 }
 
@@ -108,8 +101,6 @@ static int	ft_set_assets(t_map **map)
 		}
 		y++;
 	}
-	printf("IN SET ASSETS, map->spaces: %p\n", (*map)->spaces);
-	printf("IN SET ASSETS, map->spaces -> LAST POINTER: %p\n", ft_coord_last((*map)->spaces));
 	if (ft_spawn_enemies(*map))
 		return (FAILURE);
 	return (SUCCESS);
