@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/20 23:46:27 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 11:05:57 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:08:45 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*ft_error_map_str(t_error err)
 	if (err == WRONG_EXTENSION)
 		return ("Wrong file extension");
 	if (err == WRONG_MAP_SIZE)
-		return ("Map size is too big");
+		return ("Map size is too big or too small");
 	if (err == NOT_RECTANGULAR)
 		return ("Map is not rectangular");
 	if (err == NOT_FRAMED)

@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 15:09:32 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 11:07:12 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:54:24 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	ft_free_anim_array(t_anim **arr, int count)
 	while (i < count && arr[i])
 	{
 		arr[i]->anim_images = NULL;
-		if (arr[i])
-			free(arr[i]);
+		free(arr[i]);
 		arr[i] = NULL;
 		i++;
 	}

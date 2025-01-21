@@ -6,13 +6,12 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:11:29 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 22:23:30 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/21 23:50:35 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
-static int	ft_rectangular_check(t_map *map);
 static int	ft_min_char_validator(t_map *map);
 static int	ft_map_frame_check(t_map *map);
 
@@ -27,9 +26,6 @@ int	ft_map_parser(t_map *map)
 	ret = SUCCESS;
 	if (!map)
 		return (FAILURE);
-	ret = ft_rectangular_check(map);
-	if (ret != SUCCESS)
-		return (ret);
 	ret = ft_map_frame_check(map);
 	if (ret != SUCCESS)
 		return (ret);
@@ -49,20 +45,16 @@ int	ft_check_extension(char *path)
 
 	i = ft_gnl_strlen(path, '\0');
 	if (path[i - 1] != 'r' || path[i - 2] != 'e' || path[i - 3] != 'b' || path[i
-			- 4] != '.')
+		- 4] != '.')
 		return (WRONG_EXTENSION);
 	return (SUCCESS);
 }
 
-static int	ft_rectangular_check(t_map *map)
+int	ft_rectangular_check(t_graphics **graphics, t_map *map)
 {
 	int	i;
 	int	len;
 
-	i = 0;
-	if (map->height < 3 || map->width < 3 || map->width > MAX_WIDTH
-		|| map->height > MAX_HEIGHT)
-		return (WRONG_MAP_SIZE);
 	i = 1;
 	while (map->height > i)
 	{
@@ -70,7 +62,8 @@ static int	ft_rectangular_check(t_map *map)
 		if (ft_chrstr(map->terrain[i], '\n'))
 			len--;
 		if (len != map->width)
-			return (NOT_RECTANGULAR);
+			return (ft_map_error(graphics, NOT_RECTANGULAR, map->height),
+				NOT_RECTANGULAR);
 		i++;
 	}
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 09:37:11 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 10:58:02 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/21 23:50:44 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,15 @@ void		ft_hook(void *param);
 // map
 int			ft_init_map(t_graphics **graphics, t_map **map, char *path);
 void		ft_init_map_vals(t_map **map);
+int			ft_rectangular_check(t_graphics **graphics, t_map *map);
+int			ft_size_check(t_graphics **graphics, t_map *map);
 int			ft_appnd_coord(t_graphics **graphics, int x, int y, t_map **map);
 int			ft_appnd_spaces(t_graphics **graphics, int x, int y, t_map **map);
 void		ft_count_assets(int x, int y, t_map **map);
 
 // sprites
 int			ft_alloc_player_imgs(t_graphics **graphics);
+int			ft_alloc_enemy_img_arr(t_graphics **graphics);
 int			ft_alloc_enemy_anim_arr(t_graphics **graphics, t_game_anim **anim,
 				int count);
 void		ft_init_anim_vals(t_anim **anim);
@@ -82,6 +85,7 @@ mlx_image_t	*ft_draw_asset(t_graphics **graphics, mlx_t *mlx, char *path,
 mlx_image_t	*ft_draw_exit(t_graphics **graphics, mlx_t *mlx, char *path,
 				t_coord *asset);
 mlx_image_t	*ft_draw_number(t_graphics **graphics, char *path);
+mlx_image_t	*ft_draw_bckgrnd(t_graphics **graphics, char *path);
 t_anim		*ft_draw_player(t_graphics **graphics, mlx_image_t **asset,
 				char *path, t_coord *coord);
 
@@ -131,7 +135,7 @@ void		ft_switch_counter(t_anim **counter, int moves);
 
 // walk behind/in front of tower
 void		ft_switch_exit_z(t_graphics **graphics);
-
+void		ft_switch_exit_display(t_graphics **graphics);
 // actions
 int			ft_collect(void *param);
 int			ft_can_exit(void *param);
@@ -154,7 +158,7 @@ int			ft_is_exploding(t_graphics *graphics);
 
 // -----------MEMORY MANAGEMENT------------
 void		ft_free_graphics(t_graphics **graphics);
-void		ft_free_game_anim(t_graphics **graphics, t_game_anim *anim);
+void		ft_free_game_anim(t_graphics **graphics, t_game_anim **anim);
 void		ft_free_map(int height, t_map **map);
 void		ft_free_matrix(char **arr, int height);
 void		ft_free_coords(t_coord **lst);
@@ -164,7 +168,7 @@ void		ft_freen(int32_t count, ...);
 // -------------ERROR HANDLING-------------
 void		ft_terminate_game(t_graphics **graphics, t_error err);
 void		ft_error(t_graphics **graphics, t_error err);
-void		ft_map_error(t_graphics **graphics, t_error err);
+void		ft_map_error(t_graphics **graphics, t_error err, int height);
 void		ft_mlx_error(t_graphics **graphics, t_error err);
 char		*ft_error_str(t_error err);
 char		*ft_error_map_str(t_error err);

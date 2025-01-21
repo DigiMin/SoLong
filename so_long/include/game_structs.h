@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 09:41:29 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/19 22:49:21 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/21 12:03:17 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,14 @@ typedef struct s_graphics
 	mlx_image_t		**enemy_cntdwn;
 	mlx_image_t		**enemy_explsn;
 	mlx_image_t		*exit;
+	mlx_image_t		*exit_open;
 	mlx_image_t		*space;
 	mlx_image_t		*collectable;
 	mlx_image_t		*wall;
 	mlx_image_t		**numbers;
+	mlx_image_t		*num_bckgrnd;
+	mlx_image_t		*cngrts;
+	mlx_image_t		*failed;
 	mlx_t			*mlx;
 	t_map			*map;
 	t_game_anim		*anim;

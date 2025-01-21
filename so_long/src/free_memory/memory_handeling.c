@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 09:39:56 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 11:06:12 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/21 20:47:21 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,53 +36,53 @@ void	ft_free_map(int height, t_map **map)
 	(*map) = NULL;
 }
 
-void	ft_free_player_anim(t_game_anim *anim)
+void	ft_free_player_anim(t_game_anim **anim)
 {
-	if (anim->player_l)
+	if ((*anim)->player_l)
 	{
-		free(anim->player_l);
-		anim->player_l = NULL;
+		free((*anim)->player_l);
+		(*anim)->player_l = NULL;
 	}
-	if (anim->player_r)
+	if ((*anim)->player_r)
 	{
-		free(anim->player_r);
-		anim->player_r = NULL;
+		free((*anim)->player_r);
+		(*anim)->player_r = NULL;
 	}
-	if (anim->player_ml)
+	if ((*anim)->player_ml)
 	{
-		free(anim->player_ml);
-		anim->player_ml = NULL;
+		free((*anim)->player_ml);
+		(*anim)->player_ml = NULL;
 	}
-	if (anim->player_mr)
+	if ((*anim)->player_mr)
 	{
-		free(anim->player_mr);
-		anim->player_mr = NULL;
+		free((*anim)->player_mr);
+		(*anim)->player_mr = NULL;
 	}
-	if (anim->player_dead)
+	if ((*anim)->player_dead)
 	{
-		free(anim->player_dead);
-		anim->player_dead = NULL;
+		free((*anim)->player_dead);
+		(*anim)->player_dead = NULL;
 	}
 }
 
-void	ft_free_game_anim(t_graphics **graphics, t_game_anim *anim)
+void	ft_free_game_anim(t_graphics **graphics, t_game_anim **anim)
 {
-	if (!anim)
+	if (!*anim)
 		return ;
 	ft_free_player_anim(anim);
-	if (anim->enemy_cntdwn)
-		ft_free_anim_array(anim->enemy_cntdwn, (*graphics)->map->enemy_c);
-	if (anim->enemy_explsn)
-		ft_free_anim_array(anim->enemy_explsn, (*graphics)->map->enemy_c);
-	if (anim->numbers)
-		ft_free_anim_array(anim->numbers, ANIM_COUNT);
-	if (anim->enemy_loops)
+	if ((*anim)->enemy_cntdwn)
+		ft_free_anim_array((*anim)->enemy_cntdwn, (*graphics)->map->enemy_c);
+	if ((*anim)->enemy_explsn)
+		ft_free_anim_array((*anim)->enemy_explsn, (*graphics)->map->enemy_c);
+	if ((*anim)->numbers)
+		ft_free_anim_array((*anim)->numbers, ANIM_COUNT);
+	if ((*anim)->enemy_loops)
 	{
-		free(anim->enemy_loops);
-		anim->enemy_loops = NULL;
+		free((*anim)->enemy_loops);
+		(*anim)->enemy_loops = NULL;
 	}
-	free(anim);
-	anim = NULL;
+	free((*anim));
+	(*anim) = NULL;
 }
 
 void	ft_free_graphics(t_graphics **graphics)
@@ -91,7 +91,7 @@ void	ft_free_graphics(t_graphics **graphics)
 		return ;
 	if ((*graphics)->anim)
 	{
-		ft_free_game_anim(graphics, (*graphics)->anim);
+		ft_free_game_anim(graphics, &(*graphics)->anim);
 		(*graphics)->anim = NULL;
 	}
 	if ((*graphics)->map)

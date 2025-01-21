@@ -1,0 +1,172 @@
+==359309== Memcheck, a memory error detector
+==359309== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==359309== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==359309== Command: ./so_long maps/test.ber
+==359309== Parent PID: 344699
+==359309== 
+==359309== Invalid read of size 8
+==359309==    at 0x40286A8: strncmp (strcmp.S:172)
+==359309==    by 0x400668D: is_dst (dl-load.c:216)
+==359309==    by 0x400810E: _dl_dst_count (dl-load.c:253)
+==359309==    by 0x400810E: expand_dynamic_string_token (dl-load.c:395)
+==359309==    by 0x40082B7: fillin_rpath.isra.0 (dl-load.c:483)
+==359309==    by 0x4008602: decompose_rpath (dl-load.c:654)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:696)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:677)
+==359309==    by 0x400ABF5: _dl_map_object (dl-load.c:2165)
+==359309==    by 0x4003494: openaux (dl-deps.c:64)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==359309==    by 0x400EA0E: dl_open_worker_begin (dl-open.c:592)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==359309==  Address 0x4fddae9 is 9 bytes inside a block of size 15 alloc'd
+==359309==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==359309==    by 0x40271DF: malloc (rtld-malloc.h:56)
+==359309==    by 0x40271DF: strdup (strdup.c:42)
+==359309==    by 0x4008594: decompose_rpath (dl-load.c:629)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:696)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:677)
+==359309==    by 0x400ABF5: _dl_map_object (dl-load.c:2165)
+==359309==    by 0x4003494: openaux (dl-deps.c:64)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==359309==    by 0x400EA0E: dl_open_worker_begin (dl-open.c:592)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400E34D: _dl_open (dl-open.c:883)
+==359309== 
+==359309== Invalid read of size 8
+==359309==    at 0x40286A8: strncmp (strcmp.S:172)
+==359309==    by 0x400668D: is_dst (dl-load.c:216)
+==359309==    by 0x4007F79: _dl_dst_substitute (dl-load.c:295)
+==359309==    by 0x40082B7: fillin_rpath.isra.0 (dl-load.c:483)
+==359309==    by 0x4008602: decompose_rpath (dl-load.c:654)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:696)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:677)
+==359309==    by 0x400ABF5: _dl_map_object (dl-load.c:2165)
+==359309==    by 0x4003494: openaux (dl-deps.c:64)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==359309==    by 0x400EA0E: dl_open_worker_begin (dl-open.c:592)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==359309==  Address 0x4fddae9 is 9 bytes inside a block of size 15 alloc'd
+==359309==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==359309==    by 0x40271DF: malloc (rtld-malloc.h:56)
+==359309==    by 0x40271DF: strdup (strdup.c:42)
+==359309==    by 0x4008594: decompose_rpath (dl-load.c:629)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:696)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:677)
+==359309==    by 0x400ABF5: _dl_map_object (dl-load.c:2165)
+==359309==    by 0x4003494: openaux (dl-deps.c:64)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==359309==    by 0x400EA0E: dl_open_worker_begin (dl-open.c:592)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400E34D: _dl_open (dl-open.c:883)
+==359309== 
+==359309== 
+==359309== HEAP SUMMARY:
+==359309==     in use at exit: 313,841 bytes in 3,074 blocks
+==359309==   total heap usage: 78,921 allocs, 75,847 frees, 21,998,859 bytes allocated
+==359309== 
+==359309== 0 bytes in 1 blocks are definitely lost in loss record 1 of 2,238
+==359309==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==359309==    by 0x4005A22: malloc (rtld-malloc.h:56)
+==359309==    by 0x4005A22: _dl_find_object_update (dl-find_object.c:791)
+==359309==    by 0x400ECCF: dl_open_worker_begin (dl-open.c:735)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400E34D: _dl_open (dl-open.c:883)
+==359309==    by 0x4A4F63B: dlopen_doit (dlopen.c:56)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x4B33B62: _dl_catch_error (dl-error-skeleton.c:227)
+==359309==    by 0x4A4F12D: _dlerror_run (dlerror.c:138)
+==359309==    by 0x4A4F6C7: dlopen_implementation (dlopen.c:71)
+==359309==    by 0x4A4F6C7: dlopen@@GLIBC_2.34 (dlopen.c:81)
+==359309== 
+==359309== LEAK SUMMARY:
+==359309==    definitely lost: 0 bytes in 1 blocks
+==359309==    indirectly lost: 0 bytes in 0 blocks
+==359309==      possibly lost: 0 bytes in 0 blocks
+==359309==    still reachable: 313,841 bytes in 3,073 blocks
+==359309==         suppressed: 0 bytes in 0 blocks
+==359309== Reachable blocks (those to which a pointer was found) are not shown.
+==359309== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==359309== 
+==359309== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)
+==359309== 
+==359309== 1 errors in context 1 of 3:
+==359309== Invalid read of size 8
+==359309==    at 0x40286A8: strncmp (strcmp.S:172)
+==359309==    by 0x400668D: is_dst (dl-load.c:216)
+==359309==    by 0x4007F79: _dl_dst_substitute (dl-load.c:295)
+==359309==    by 0x40082B7: fillin_rpath.isra.0 (dl-load.c:483)
+==359309==    by 0x4008602: decompose_rpath (dl-load.c:654)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:696)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:677)
+==359309==    by 0x400ABF5: _dl_map_object (dl-load.c:2165)
+==359309==    by 0x4003494: openaux (dl-deps.c:64)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==359309==    by 0x400EA0E: dl_open_worker_begin (dl-open.c:592)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==359309==  Address 0x4fddae9 is 9 bytes inside a block of size 15 alloc'd
+==359309==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==359309==    by 0x40271DF: malloc (rtld-malloc.h:56)
+==359309==    by 0x40271DF: strdup (strdup.c:42)
+==359309==    by 0x4008594: decompose_rpath (dl-load.c:629)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:696)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:677)
+==359309==    by 0x400ABF5: _dl_map_object (dl-load.c:2165)
+==359309==    by 0x4003494: openaux (dl-deps.c:64)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==359309==    by 0x400EA0E: dl_open_worker_begin (dl-open.c:592)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400E34D: _dl_open (dl-open.c:883)
+==359309== 
+==359309== 
+==359309== 1 errors in context 2 of 3:
+==359309== Invalid read of size 8
+==359309==    at 0x40286A8: strncmp (strcmp.S:172)
+==359309==    by 0x400668D: is_dst (dl-load.c:216)
+==359309==    by 0x400810E: _dl_dst_count (dl-load.c:253)
+==359309==    by 0x400810E: expand_dynamic_string_token (dl-load.c:395)
+==359309==    by 0x40082B7: fillin_rpath.isra.0 (dl-load.c:483)
+==359309==    by 0x4008602: decompose_rpath (dl-load.c:654)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:696)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:677)
+==359309==    by 0x400ABF5: _dl_map_object (dl-load.c:2165)
+==359309==    by 0x4003494: openaux (dl-deps.c:64)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==359309==    by 0x400EA0E: dl_open_worker_begin (dl-open.c:592)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==359309==  Address 0x4fddae9 is 9 bytes inside a block of size 15 alloc'd
+==359309==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==359309==    by 0x40271DF: malloc (rtld-malloc.h:56)
+==359309==    by 0x40271DF: strdup (strdup.c:42)
+==359309==    by 0x4008594: decompose_rpath (dl-load.c:629)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:696)
+==359309==    by 0x400ABF5: cache_rpath (dl-load.c:677)
+==359309==    by 0x400ABF5: _dl_map_object (dl-load.c:2165)
+==359309==    by 0x4003494: openaux (dl-deps.c:64)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x4003C7B: _dl_map_object_deps (dl-deps.c:248)
+==359309==    by 0x400EA0E: dl_open_worker_begin (dl-open.c:592)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400DF99: dl_open_worker (dl-open.c:782)
+==359309==    by 0x4B33A97: _dl_catch_exception (dl-error-skeleton.c:208)
+==359309==    by 0x400E34D: _dl_open (dl-open.c:883)
+==359309== 
+==359309== ERROR SUMMARY: 3 errors from 3 contexts (suppressed: 0 from 0)

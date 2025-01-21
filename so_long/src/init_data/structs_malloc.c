@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:02:48 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 11:05:12 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:54:14 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,22 @@ int	ft_alloc_player_imgs(t_graphics **graphics)
 	(*graphics)->player_dead = malloc(sizeof(mlx_image_t *) * ANIM_COUNT);
 	if (!(*graphics)->player_dead)
 		return (ft_mlx_error(graphics, MALLOC), MALLOC);
+	(*graphics)->numbers = malloc(sizeof(mlx_image_t *) * 10);
+	if (!(*graphics)->numbers)
+		return (ft_mlx_error(graphics, MALLOC), MALLOC);
+	ft_alloc_enemy_img_arr(graphics);
+	return (SUCCESS);
+}
+
+int ft_alloc_enemy_img_arr(t_graphics **graphics)
+{
+	if ((*graphics)->map->enemy_c == 0)
+		return (SUCCESS);
 	(*graphics)->enemy_cntdwn = malloc(sizeof(mlx_image_t *) * ANIM_COUNT);
 	if (!(*graphics)->enemy_cntdwn)
 		return (ft_mlx_error(graphics, MALLOC), MALLOC);
 	(*graphics)->enemy_explsn = malloc(sizeof(mlx_image_t *) * ANIM_COUNT);
 	if (!(*graphics)->enemy_explsn)
-		return (ft_mlx_error(graphics, MALLOC), MALLOC);
-	(*graphics)->numbers = malloc(sizeof(mlx_image_t *) * 10);
-	if (!(*graphics)->numbers)
 		return (ft_mlx_error(graphics, MALLOC), MALLOC);
 	return (SUCCESS);
 }

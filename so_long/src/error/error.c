@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 22:51:47 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 11:04:50 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/21 23:39:59 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	ft_error(t_graphics **graphics, t_error err)
 	exit(err);
 }
 
-void	ft_map_error(t_graphics **graphics, t_error err)
+void	ft_map_error(t_graphics **graphics, t_error err, int height)
 {
 	if (err != SUCCESS)
 	{
 		ft_printf("Error\n%s\n", ft_error_str(err));
 		if ((*graphics)->map)
-			ft_free_map((*graphics)->map->height, &(*graphics)->map);
+			ft_free_map(height, &(*graphics)->map);
 		exit(err);
 	}
 	else

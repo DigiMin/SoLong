@@ -1,6 +1,6 @@
 CC		:= cc
 NAME	:= so_long
-CFLAGS	:= -g #-fsanitize=address#-Wextra -Wall -Werror -Wunreachable-code -Ofast
+CFLAGS	:= -g #-fsanitize=address -Wextra -Wall -Werror -Wunreachable-code -Ofast
 LIBMLX	:= ../MLX42/
 
 HEADERS	:= -I ./include -I $(LIBMLX)/include
@@ -11,7 +11,7 @@ OBJS	:= ${SRCS:.c=.o}
 all: libmlx $(NAME)
 
 libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/mlx_build && make -C $(LIBMLX)/mlx_build -j4
+	@cmake -DDEBUG=1 $(LIBMLX) -B $(LIBMLX)/mlx_build && make -C $(LIBMLX)/mlx_build -j4
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
