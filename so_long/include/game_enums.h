@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 09:39:53 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/18 09:41:02 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 22:27:31 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef enum e_error
 	OPEN,
 	READ,
 	INIT_FAILED,
+	WRONG_ARGS,
 	WRONG_EXTENSION,
 	WRONG_MAP_SIZE,
 	NOT_RECTANGULAR,
@@ -41,14 +42,14 @@ typedef enum e_axes
 
 typedef enum e_anim_spec
 {
+	ENEMY_NOT_SPAWNABLE = -1,
 	PLAYER_R,
 	PLAYER_L,
 	PLAYER_MR,
 	PLAYER_ML,
 	PLAYER_DEAD,
 	ENEMY_CNTDWN,
-	ENEMY_EXPLSN,
-	ENEMY_NOT_SPAWNABLE
+	ENEMY_EXPLSN
 }					t_anim_spec;
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:34:22 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/18 08:44:41 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:15:50 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
-int	ft_enable_anim(t_game_anim *anim, t_anim_spec spec)
+void	ft_enable_anim(t_game_anim *anim, t_anim_spec spec)
 {
 	t_anim	*player;
 
@@ -28,5 +28,4 @@ int	ft_enable_anim(t_game_anim *anim, t_anim_spec spec)
 	ft_switch_display(anim->player_mr);
 	ft_switch_display(anim->player_ml);
 	ft_switch_display(anim->player_dead);
-	return (SUCCESS);
 }

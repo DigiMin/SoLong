@@ -6,18 +6,12 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 09:39:56 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 12:27:41 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:06:12 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
-// bool mlx_freen(int32_t count, ...)
-// bool mlx_error(mlx_errno_t val)
-// void mlx_delete_texture(mlx_texture_t* texture)
-// void mlx_terminate(mlx_t* mlx)
-
-// Frees the map array
 void	ft_free_map(int height, t_map **map)
 {
 	if (!map)
@@ -44,8 +38,6 @@ void	ft_free_map(int height, t_map **map)
 
 void	ft_free_player_anim(t_game_anim *anim)
 {
-	if (!anim)
-		return ;
 	if (anim->player_l)
 	{
 		free(anim->player_l);
@@ -78,11 +70,17 @@ void	ft_free_game_anim(t_graphics **graphics, t_game_anim *anim)
 	if (!anim)
 		return ;
 	ft_free_player_anim(anim);
-	ft_free_anim_array(anim->enemy_cntdwn, (*graphics)->map->enemy_c);
-	ft_free_anim_array(anim->enemy_explsn, (*graphics)->map->enemy_c);
-	ft_free_anim_array(anim->numbers, ANIM_COUNT);
-	free(anim->enemy_loops);
-	anim->enemy_loops = NULL;
+	if (anim->enemy_cntdwn)
+		ft_free_anim_array(anim->enemy_cntdwn, (*graphics)->map->enemy_c);
+	if (anim->enemy_explsn)
+		ft_free_anim_array(anim->enemy_explsn, (*graphics)->map->enemy_c);
+	if (anim->numbers)
+		ft_free_anim_array(anim->numbers, ANIM_COUNT);
+	if (anim->enemy_loops)
+	{
+		free(anim->enemy_loops);
+		anim->enemy_loops = NULL;
+	}
 	free(anim);
 	anim = NULL;
 }
@@ -92,12 +90,18 @@ void	ft_free_graphics(t_graphics **graphics)
 	if (!graphics)
 		return ;
 	if ((*graphics)->anim)
+	{
 		ft_free_game_anim(graphics, (*graphics)->anim);
-	(*graphics)->anim = NULL;
+		(*graphics)->anim = NULL;
+	}
 	if ((*graphics)->map)
+	{
 		ft_free_map((*graphics)->map->height, &(*graphics)->map);
-	(*graphics)->map = NULL;
+		(*graphics)->map = NULL;
+	}
 	if ((*graphics)->mlx)
+	{
 		mlx_terminate((*graphics)->mlx);
-	(*graphics)->mlx = NULL;
+		(*graphics)->mlx = NULL;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:35:39 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/19 22:50:16 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 17:14:35 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,15 @@ void	ft_animate_enemy(t_graphics *graphics, t_anim_spec spec, int i)
 	ft_switch_enemy_display(graphics, sprite, i);
 }
 
-int	ft_enable_enemy_anim(t_graphics *graphics, t_anim_spec spec, int i)
+void	ft_enable_enemy_anim(t_graphics *graphics, t_anim_spec spec, int i)
 {
 	t_game_anim	*anim;
 
 	anim = graphics->anim;
 	if (spec == ENEMY_CNTDWN)
-	{
 		ft_switch_enemy_display(graphics, anim->enemy_cntdwn[i], i);
-	}
 	else if (spec == ENEMY_EXPLSN)
-	{
 		ft_switch_enemy_display(graphics, anim->enemy_explsn[i], i);
-	}
-	return (SUCCESS);
 }
 
 void	ft_disable_all_enemy_anim(t_graphics *graphics, t_game_anim *anim)

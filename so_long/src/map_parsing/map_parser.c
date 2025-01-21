@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:11:29 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 12:23:33 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 22:23:30 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_check_extension(char *path)
 	size_t	i;
 
 	i = ft_gnl_strlen(path, '\0');
-	if (path[i - 1] != 'r' && path[i - 2] != 'e' && path[i - 3] != 'b' && path[i
+	if (path[i - 1] != 'r' || path[i - 2] != 'e' || path[i - 3] != 'b' || path[i
 			- 4] != '.')
 		return (WRONG_EXTENSION);
 	return (SUCCESS);
@@ -60,12 +60,10 @@ static int	ft_rectangular_check(t_map *map)
 	int	len;
 
 	i = 0;
-	if (map->height < 3 || map->width < 3 || map->width >= MAX_WIDTH
-		|| map->height >= MAX_HEIGHT)
+	if (map->height < 3 || map->width < 3 || map->width > MAX_WIDTH
+		|| map->height > MAX_HEIGHT)
 		return (WRONG_MAP_SIZE);
 	i = 1;
-	printf("map->height: %d\n", map->height);
-	printf("map->width: %d\n", map->width);
 	while (map->height > i)
 	{
 		len = (int)ft_gnl_strlen(map->terrain[i], '\n');

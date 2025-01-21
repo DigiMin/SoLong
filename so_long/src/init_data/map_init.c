@@ -6,20 +6,20 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:26:43 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 12:24:15 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 20:31:10 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
-static int	ft_set_assets(t_map **map);
+static int	ft_set_assets(t_graphics **graphics, t_map **map);
 static int	ft_read_ber(t_map **map, char *path);
 static int	ft_set_height(char *path, t_map **map);
 
 // ---------------------- COORD SETTERS ------------------------------- //
 
 // Read the map and init the variables
-int	ft_init_map(t_map **map, char *path)
+int	ft_init_map(t_graphics **graphics, t_map **map, char *path)
 {
 	int	ret;
 
@@ -31,7 +31,7 @@ int	ft_init_map(t_map **map, char *path)
 	if (ret != SUCCESS)
 		return (ret);
 	(*map)->width = ft_gnl_strlen((*map)->terrain[0], '\n') - 1;
-	ret = ft_set_assets(map);
+	ret = ft_set_assets(graphics, map);
 	if (ret != SUCCESS)
 		return (ret);
 	return (ret);
@@ -83,7 +83,7 @@ static int	ft_set_height(char *path, t_map **map)
 	return (SUCCESS);
 }
 
-static int	ft_set_assets(t_map **map)
+static int	ft_set_assets(t_graphics **graphics, t_map **map)
 {
 	int	x;
 	int	y;
@@ -94,14 +94,14 @@ static int	ft_set_assets(t_map **map)
 		x = 0;
 		while (x < (*map)->width)
 		{
-			if (ft_appnd_coord(x, y, map) != SUCCESS)
+			if (ft_appnd_coord(graphics, x, y, map) != SUCCESS)
 				return (ft_free_map((*map)->height, map), MALLOC);
 			ft_count_assets(x, y, map);
 			x++;
 		}
 		y++;
 	}
-	if (ft_spawn_enemies(*map))
-		return (FAILURE);
+	if (ft_spawn_enemies(graphics, *map))
+		return (ft_free_map((*map)->height, map), INIT_FAILED);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:08:51 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 12:11:50 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:04:10 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_move_player(t_graphics *graphics, t_axes dia, int pix)
 	}
 	if (ft_is_space(graphics, xm, ym) != SUCCESS)
 		return ;
-	ft_switch_exit_z(graphics);
+	ft_switch_exit_z(&graphics);
 	ft_set_pimage_coord(graphics, xm, ym);
 	ft_switch_counter(graphics->anim->numbers, ++graphics->map->move_c);
 	ft_print_info_to_terminal(graphics);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_multi_strjoin.c                                 :+:      :+:    :+:   */
+/*   multi_strjoin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:59:28 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/15 21:24:59 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:54:13 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ char	*ft_multi_strjoin(int count, ...)
 	{
 		str = va_arg(ap, char *);
 		new = ft_strjoin(new, str);
+		if (!new)
+			return (va_end(ap), NULL);
 		count--;
 	}
-	if (!new)
-		return (va_end(ap), NULL);
 	return (va_end(ap), new);
 }
 

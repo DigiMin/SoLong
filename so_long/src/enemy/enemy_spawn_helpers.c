@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:36:37 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/18 09:29:48 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:46:24 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	ft_get_max_enemy_count(t_map *map)
 	else
 		d = 5;
 	count = ft_get_random_spawn_index(map) % d;
+	if (count < 0)
+		return (0);
 	if (count == 0)
 		count++;
 	return (count);
@@ -41,6 +43,8 @@ int	ft_get_random_spawn_index(t_map *map)
 
 	fd = open("/dev/random", O_RDONLY);
 	rnd_line = get_next_line(fd);
+	if (!rnd_line)
+		return (0);
 	random = ft_gnl_strlen(rnd_line, '\0') % map->space_c;
 	free(rnd_line);
 	close(fd);

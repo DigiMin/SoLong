@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 11:58:16 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/18 08:47:29 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:27:09 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	ft_switch_display(t_anim *asset)
 	int	i;
 
 	i = 0;
+	if (!asset)
+		return ;
 	if (!asset->enabled)
 	{
 		while (i < asset->anim_count)
@@ -78,13 +80,9 @@ void	ft_switch_display(t_anim *asset)
 	while (i < asset->anim_count)
 	{
 		if (i == asset->anim_frame)
-		{
 			asset->anim_images[i]->enabled = true;
-		}
 		else
-		{
 			asset->anim_images[i]->enabled = false;
-		}
 		i++;
 	}
 }

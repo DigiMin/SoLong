@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 11:45:22 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 10:57:08 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 23:42:29 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ t_anim	**ft_set_counter(t_graphics **graphics)
 	ft_draw_numbers(graphics);
 	counter = malloc(sizeof(t_anim *) * 6);
 	if (!counter)
-		return (NULL);
+		return (ft_mlx_error(graphics, MALLOC), NULL);
 	i = 0;
 	while (i < 6)
 	{
 		counter[i] = malloc(sizeof(t_anim));
 		if (!counter[i])
-			return (NULL);
+			return (ft_mlx_error(graphics, MALLOC), NULL);
 		counter[i]->anim_count = 10;
 		counter[i]->anim_frame = 0;
 		counter[i]->anim_speed = 0;

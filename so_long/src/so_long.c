@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:21:59 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 12:14:16 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:09:10 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,29 @@ int32_t	main(int argc, char **argv)
 {
 	t_graphics	graphics;
 	t_graphics	*graphics_ptr;
-	int			ret;
+	t_error		ret;
 
-	if (argc != 2 || ft_check_extension(argv[1]) != SUCCESS)
+	if (argc != 2)
 	{
-		ft_printf("Usage: %s <map.ber>\n", argv[0]);
-		exit(EXIT_FAILURE);
+		ret = WRONG_ARGS;
+		ft_printf("%s\n", ft_error_str(ret));
+		return (ret);
+	}
+	ret = ft_check_extension(argv[1]);
+	if (ret != SUCCESS)
+	{
+		ft_printf("%s\n", ft_error_str(ret));
+		return (ret);
 	}
 	graphics_ptr = &graphics;
 	if (ft_init_graphics(&graphics_ptr, argv[1]) != SUCCESS)
 		return (EXIT_FAILURE);
-	printf("GRAPHICS INITIALIZED\n");
 	mlx_loop_hook(graphics.mlx, ft_hook, &graphics);
 	mlx_loop(graphics.mlx);
-	ft_free_graphics(&graphics_ptr);
-	return (EXIT_SUCCESS);
+	ft_error(&graphics_ptr, SUCCESS);
 }
 
-// TODO: FREEEEEEEEEEEEEEEEEE
-// TODO: MAXIMUM MOVEMENT ENDING GAME
-// TODO: better error handling
-// TODO: figure out the segfaultfor the toobig map
-// TODO: check this function mlx_close_window(mlx_t* mlx)
-// mlx_delete_image(mlx, img);
 // TODO: MAKEFILE erase object files after
 // making and download and install mlx in the makefile
 // TODO: WIN AND FAIL OVER COUNTER
 // TODO: Change tower when everything is collected
-// return (0);

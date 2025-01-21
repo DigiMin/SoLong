@@ -6,21 +6,19 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 19:31:54 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/20 12:24:37 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/20 20:05:38 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
 
-void	ft_coord_add_back(t_coord **lst, int x, int y)
+void	ft_coord_add_back(t_graphics **graphics, t_coord **lst, int x, int y)
 {
 	t_coord	*last;
 	t_coord	*head;
 	t_coord	*new;
 
-	new = ft_coord_new(x, y);
-	if (!new)
-		return ;
+	new = ft_coord_new(graphics, x, y);
 	if (!*lst)
 	{
 		*lst = new;
@@ -43,13 +41,13 @@ t_coord	*ft_coord_last(t_coord *lst)
 	return (last);
 }
 
-t_coord	*ft_coord_new(int x, int y)
+t_coord	*ft_coord_new(t_graphics **graphics, int x, int y)
 {
 	t_coord	*new;
 
 	new = malloc(sizeof(t_coord));
 	if (!new)
-		return (NULL);
+		return (ft_error(graphics, MALLOC), NULL);
 	new->x = x;
 	new->y = y;
 	new->next = NULL;
