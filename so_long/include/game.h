@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 09:37:11 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/22 11:54:29 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:57:47 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "game_enums.h"
 # include "game_structs.h"
 # include "get_next_line.h"
-# include <MLX42/MLX42.h>
+# include "MLX42/MLX42.h"
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>

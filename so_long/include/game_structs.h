@@ -6,14 +6,14 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 09:41:29 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 12:03:17 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 14:29:20 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_STRUCTS_H
 # define GAME_STRUCTS_H
 # include "game_enums.h"
-# include <MLX42/MLX42.h>
+# include "MLX42/MLX42.h"
 
 typedef struct s_coord
 {

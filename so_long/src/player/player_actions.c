@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 22:35:48 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/19 22:51:24 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:21:26 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	ft_can_exit(void *param)
 	exit = graphics->exit;
 	if (player->x - OSET > exit->instances[0].x - IMG_SIZE && player->x
 		+ OSET < exit->instances[0].x + IMG_SIZE && player->y
-		- HALF_SIZE > exit->instances[0].y && player->y
-		+ OSET < exit->instances[0].y + IMG_SIZE * 2
+		- IMG_SIZE > exit->instances[0].y && player->y + OSET
+		< exit->instances[0].y + IMG_SIZE * 2
 		&& graphics->map->collected == graphics->map->collectible_c)
 		return (SUCCESS);
 	return (FAILURE);
