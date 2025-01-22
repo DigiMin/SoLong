@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 17:26:43 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 23:58:42 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:19:24 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static int	ft_set_height(t_graphics **graphics, char *path, t_map **map)
 		return (OPEN);
 	row = get_next_line(fd);
 	if (!row)
-		return (WRONG_MAP_SIZE);
+		return (ft_map_error(graphics, WRONG_MAP_SIZE, i), WRONG_MAP_SIZE);
 	while (row)
 	{
 		i++;

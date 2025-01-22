@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:21:59 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 15:02:18 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 12:01:22 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@ int32_t	main(int argc, char **argv)
 	if (ft_init_graphics(&graphics_ptr, argv[1]) != SUCCESS)
 		return (EXIT_FAILURE);
 	mlx_loop_hook(graphics.mlx, ft_hook, &graphics);
+	mlx_close_hook(graphics.mlx, ft_close, &graphics);
 	mlx_loop(graphics.mlx);
 	ft_error(&graphics_ptr, SUCCESS);
 }
 
 // TODO: MAKEFILE erase object files after
-// making and download and install mlx in the makefile
-// TODO: WIN AND FAIL OVER COUNTER
-// TODO: Change tower when everything is collected

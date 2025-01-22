@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 09:37:11 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 23:50:44 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:54:29 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 // ----------------GAME LOOP---------------
 
 void		ft_hook(void *param);
+void		ft_close(void *param);
 
 // -------------INIT/SET DATA--------------
 

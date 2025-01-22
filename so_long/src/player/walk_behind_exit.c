@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:05:09 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 12:00:30 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:20:13 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_switch_exit_z(t_graphics **graphics)
 	player = (*graphics)->player_dead[ANIM_COUNT - 1]->instances;
 	if ((*graphics)->exit_open->enabled)
 		exit = (*graphics)->exit_open;
-	else if ((*graphics)->exit->enabled)
+	else
 		exit = (*graphics)->exit;
 	if (player->x > exit->instances[0].x - IMG_SIZE
 		&& player->x < exit->instances[0].x + IMG_SIZE && player->y

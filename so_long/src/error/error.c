@@ -6,11 +6,23 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 22:51:47 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 23:39:59 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 11:57:10 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/game.h"
+
+void	ft_close(void *param)
+{
+	t_graphics	*graph;
+	t_graphics	**graphics;
+
+	graph = (t_graphics *)param;
+	graphics = &graph;
+	if (graphics)
+		ft_free_graphics(graphics);
+	exit(SUCCESS);
+}
 
 void	ft_terminate_game(t_graphics **graphics, t_error err)
 {
