@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:17:06 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 10:34:33 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:28:46 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,17 @@ void	ft_init_map_vals(t_map **map)
 	(*map)->collectibles = NULL;
 	(*map)->walls = NULL;
 	(*map)->enemy = NULL;
+}
+
+void	ft_init_graphics_vals(t_graphics **graphics)
+{
+	(*graphics)->anim = ft_set_game_anim(graphics);
+	(*graphics)->map->collected = 0;
+	(*graphics)->can_move = 1;
+	(*graphics)->last_anim_dir = PLAYER_MR;
+	(*graphics)->cngrts = ft_draw_bckgrnd(graphics, "./graphics/UI/cb1.png");
+	(*graphics)->failed = ft_draw_bckgrnd(graphics, "./graphics/UI/cb2.png");
+	(*graphics)->cngrts->enabled = 0;
+	(*graphics)->failed->enabled = 0;
+	(*graphics)->anim->z_exit = (*graphics)->exit->instances[0].z;
 }

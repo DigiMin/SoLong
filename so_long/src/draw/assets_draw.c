@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:38:15 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 12:20:13 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:25:44 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ void	ft_set_map_img(t_graphics **graphics, t_map *map)
 			"./graphics/Resources/Tower_Blue_o.png", map->exit);
 	(*graphics)->enemy = ft_draw_asset(graphics, (*graphics)->mlx,
 			"./graphics/Enemy/Enemy.png", (*graphics)->map->enemy);
-	(*graphics)->num_bckgrnd = ft_draw_bckgrnd(graphics, "./graphics/UI/cb0.png");
+	(*graphics)->num_bckgrnd = ft_draw_bckgrnd(graphics,
+			"./graphics/UI/cb0.png");
 	if (!(*graphics)->wall || !(*graphics)->space || !(*graphics)->collectable
 		|| !(*graphics)->exit || !(*graphics)->exit_open || !(*graphics)->enemy)
 		ft_mlx_error(graphics, MLX_DRAW_FAILURE);
 	(*graphics)->exit_open->enabled = 0;
 }
 
-
 mlx_image_t	*ft_draw_bckgrnd(t_graphics **graphics, char *path)
 {
-	int	x;
-	int ret;
-	mlx_image_t *img;
+	int			x;
+	int			ret;
+	mlx_image_t	*img;
 
 	img = ft_load_png(graphics, (*graphics)->mlx, path);
 	x = ((*graphics)->map->width - 3) * 64;

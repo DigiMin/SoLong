@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 10:02:48 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 15:54:14 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:24:43 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_alloc_player_imgs(t_graphics **graphics)
 	return (SUCCESS);
 }
 
-int ft_alloc_enemy_img_arr(t_graphics **graphics)
+int	ft_alloc_enemy_img_arr(t_graphics **graphics)
 {
 	if ((*graphics)->map->enemy_c == 0)
 		return (SUCCESS);

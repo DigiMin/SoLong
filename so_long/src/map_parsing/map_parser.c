@@ -6,7 +6,7 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 18:11:29 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/21 23:50:35 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:25:15 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_check_extension(char *path)
 
 	i = ft_gnl_strlen(path, '\0');
 	if (path[i - 1] != 'r' || path[i - 2] != 'e' || path[i - 3] != 'b' || path[i
-		- 4] != '.')
+			- 4] != '.')
 		return (WRONG_EXTENSION);
 	return (SUCCESS);
 }

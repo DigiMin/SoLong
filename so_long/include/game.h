@@ -6,17 +6,17 @@
 /*   By: honnguye <honnguye@student.42prague.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 09:37:11 by honnguye          #+#    #+#             */
-/*   Updated: 2025/01/22 14:57:47 by honnguye         ###   ########.fr       */
+/*   Updated: 2025/01/22 15:30:21 by honnguye         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_H
 # define GAME_H
+# include "MLX42/MLX42.h"
 # include "ft_printf.h"
 # include "game_enums.h"
 # include "game_structs.h"
 # include "get_next_line.h"
-# include "MLX42/MLX42.h"
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -58,6 +58,7 @@ int			ft_alloc_enemy_img_arr(t_graphics **graphics);
 int			ft_alloc_enemy_anim_arr(t_graphics **graphics, t_game_anim **anim,
 				int count);
 void		ft_init_anim_vals(t_anim **anim);
+void		ft_init_graphics_vals(t_graphics **graphics);
 t_anim		*ft_init_enemy_anim(mlx_image_t **asset);
 void		ft_init_all_enemy_anim(t_graphics **graphics, t_game_anim **anim,
 				int i);
