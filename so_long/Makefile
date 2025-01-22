@@ -59,14 +59,20 @@ $(SRC_DIR)main_game_hook.c\
 $(SRC_DIR)so_long.c
 
 
-all: lib_so_long.a libmlx.a $(OBJ_SUBDIRS) $(NAME)
+all: libmlx.a lib_so_long.a $(OBJ_SUBDIRS) $(NAME)
 
 $(OBJ_SUBDIRS):
 	@mkdir -p $@
 
 libmlx.a:
+	if [ ! -d $(LIBMLX) ]; then \
+		cd .. && \
+		git clone https://github.com/codam-coding-college/MLX42.git && \
+		cd MLX42; \
+	fi
 	@if [ ! -f $(LIBMLX)/mlx_build/libmlx42.a ]; then \
-		cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4; \
+		cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4 && \
+		cd ../so_long; \
 	fi
 
 lib_so_long.a: $(OBJS)
@@ -86,6 +92,7 @@ clean:
 
 fclean: clean
 	@rm -rf $(NAME)
+	@rm -rf $(LIBMLX)
 
 re: fclean all
 
