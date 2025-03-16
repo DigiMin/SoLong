@@ -11,6 +11,6 @@ Also the counter is not perfect either.
 If you find more "features" please let me know in comments :D
 
 ## Game play
-[Screencast from 03-16-2025 11:04:40 AM.webm](https://github.com/user-attachments/assets/527ef584-1adc-4aa6-b83c-8358b96c35d8)
-[Screencast from 03-16-2025 11:01:47 AM.webm](https://github.com/user-attachments/assets/7b3db9ae-ddb8-4def-9edb-5ff7ec850ddf)
+- [DEATH](https://github.com/user-attachments/assets/527ef584-1adc-4aa6-b83c-8358b96c35d8)
+- [WIN](https://github.com/user-attachments/assets/7b3db9ae-ddb8-4def-9edb-5ff7ec850ddf)
 
