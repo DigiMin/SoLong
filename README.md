@@ -16,6 +16,14 @@ If you find more "features" please let me know in comments :D
 
 
 ## Game play
-- [DEATH](https://github.com/user-attachments/assets/527ef584-1adc-4aa6-b83c-8358b96c35d8)
-- [WIN](https://github.com/user-attachments/assets/7b3db9ae-ddb8-4def-9edb-5ff7ec850ddf)
+- [DEATH](https://github.com/user-attachments/assets/2975d3e4-346f-42a0-862f-0616871500a6)
+- [WIN](https://github.com/user-attachments/assets/88b00c5d-37f9-4ce2-b188-741506c1f2da)
+
+
+
+
+
+
+
+
 
