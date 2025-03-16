@@ -16,8 +16,8 @@ If you find more "features" please let me know in comments :D
 
 
 ## Game play
-- [DEATH](https://github.com/user-attachments/assets/2975d3e4-346f-42a0-862f-0616871500a6)
-- [WIN](https://github.com/user-attachments/assets/88b00c5d-37f9-4ce2-b188-741506c1f2da)
+- ![DEATH](https://github.com/user-attachments/assets/2975d3e4-346f-42a0-862f-0616871500a6)
+- ![WIN](https://github.com/user-attachments/assets/88b00c5d-37f9-4ce2-b188-741506c1f2da)
 
 
 
